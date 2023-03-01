@@ -1,4 +1,6 @@
 const nodemailer = require('nodemailer');
+const schedule = require('node-schedule');
+
 const allQuotes = [
     {
         quote: "Do not let your children do anything that makes you dislike them.",
@@ -136,26 +138,37 @@ function getRandomQuote() {
 const result = getRandomQuote()
 
 const transporter = nodemailer.createTransport({
-  host: 'smtp.outlook.com',
+    host: 'smtp.outlook.com',
   port: 587,
   secure: false,
   auth: {
-    user: 'lookout-intothe@outlook.com',
-    pass: 'Vini11!!qq'
-  }
+      user: 'lookout-intothe@outlook.com',
+      pass: 'Vini11!!qq'
+    }
 });
-
 const message = {
     from: 'lookout-intothe@outlook.com',
     to:'vinnycesca@gmail.com',
     subject: "Quote of the Day",
-    text: `Good Morning! ${result}`
+    text: `Good Morning!\n\n${result}`
 }
+////////////////////////////////
+const rule = new schedule.RecurrenceRule();
+rule.dayOfWeek = [new schedule.Range(0, 7)];
+rule.hour = 11;
+rule.minute = 4;
+////////////////////////////////
 
-transporter.sendMail(message, (error, info) => {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log(`Email sent: ${info.response}`);
-    }
-  });
+
+const job = schedule.scheduleJob(rule,function(){
+    transporter.sendMail(message, (error, info) => {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log(`Email sent: ${info.response}`);
+        }
+    });
+
+})
+
+
