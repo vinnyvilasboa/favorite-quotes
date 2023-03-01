@@ -155,8 +155,8 @@ const message = {
 ////////////////////////////////
 const rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [new schedule.Range(0, 7)];
-rule.hour = 11;
-rule.minute = 4;
+rule.hour = 8;
+rule.minute = 0;
 ////////////////////////////////
 
 
