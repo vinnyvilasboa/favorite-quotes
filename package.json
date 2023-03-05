@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "bootstrap": "^5.2.3",
     "node-schedule": "^2.1.1",
     "nodemailer": "^6.9.1"
   }

@@ -1,5 +1,7 @@
 const nodemailer = require('nodemailer');
 const schedule = require('node-schedule');
+// myscript.js
+alert("Hello, world!");
 
 const allQuotes = [
     {
