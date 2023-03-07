@@ -5,7 +5,8 @@ const app = express()
 const nodemailer = require('nodemailer');
 const schedule = require('node-schedule');
 const port = 3000
-const Quote = null
+const Quote = require('./models/quote')
+const User = require('./models/user')
 
 
 //Models
@@ -150,8 +151,10 @@ const allQuotes = [
 
 
 async function getRandomQuote() {
-    let randomIndex = Math.floor(Math.random() * allQuotes.length);
-    let randomQuote = allQuotes[randomIndex]
+    const quotesDB = await Quote.find({})
+    if(!quotesDB.length) return 'no quotes found'
+    let randomIndex = Math.floor(Math.random() * quotesDB.length);
+    let randomQuote = quotesDB[randomIndex]
     console.log("Here is your quote of the day: " + '"' + randomQuote.quote + '" ' + "by " + randomQuote.author )
     return "Here is your quote of the day: " + '"' + randomQuote.quote + '" ' + "by " + randomQuote.author
 
