@@ -1,7 +1,6 @@
 const nodemailer = require('nodemailer');
 const schedule = require('node-schedule');
-// myscript.js
-alert("Hello, world!");
+require('dotenv').config();
 
 const allQuotes = [
     {
@@ -126,6 +125,8 @@ const allQuotes = [
         author: "C.S. Lewis"
     }
 ];
+const userEmail = process.env.EMAIL;
+const password = process.env.EMAIL_PASS;
 
 
 function getRandomQuote() {
@@ -144,10 +145,11 @@ const transporter = nodemailer.createTransport({
   port: 587,
   secure: false,
   auth: {
-      user: 'lookout-intothe@outlook.com',
-      pass: 'Vini11!!qq'
+      user: `${userEmail}`,
+      pass: `${password}`
     }
 });
+
 const message = {
     from: 'lookout-intothe@outlook.com',
     to:'vinnycesca@gmail.com',
@@ -157,8 +159,8 @@ const message = {
 ////////////////////////////////
 const rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [new schedule.Range(0, 7)];
-rule.hour = 8;
-rule.minute = 0;
+rule.hour = 10;
+rule.minute = 30;
 ////////////////////////////////
 
 
