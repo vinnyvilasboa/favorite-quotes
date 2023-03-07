@@ -4,6 +4,12 @@ A service that emails a random quote from either Dr. Jordan Peterson, C.S Lewis 
 - Working on this project: Vinny Vilasboa & Lucas Carlos
 
 
+# WireFrame
+
+<img
+  src="assets/wireframe.png"
+  alt="wireframe"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
 ## Installation
 
 Use the package manager [NPM](https://www.npmjs.com/) to install.
