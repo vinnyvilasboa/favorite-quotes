@@ -63,7 +63,11 @@ const allQuotes = [
         quote: "There is no faith and no courage and no sacrifice in doing what is expedient.",
         author: "Jordan Peterson"
     },
-    { quote: "There is no route that you can take to escape the limitations that constitute existence." },
+    {
+        quote: "There is no route that you can take to escape the limitations that constitute existence.",
+        author: "Jordan Peterson"
+
+    },
     {
         quote: "The pursuit of happiness is a pointless goal. Happiness is a fleeting byproduct of meaningful action.",
         author: "Jordan Peterson"
@@ -148,33 +152,34 @@ const allQuotes = [
         author: "C.S. Lewis"
     }
 ];
+const userEmail = process.env.EMAIL;
+const password = process.env.EMAIL_PASS;
 
 
-async function getRandomQuote() {
-    const quotesDB = await Quote.find({})
-    if(!quotesDB.length) return 'no quotes found'
-    let randomIndex = Math.floor(Math.random() * quotesDB.length);
-    let randomQuote = quotesDB[randomIndex]
+function getRandomQuote() {
+    let randomIndex = Math.floor(Math.random() * allQuotes.length);
+    let randomQuote = allQuotes[randomIndex]
     console.log("Here is your quote of the day: " + '"' + randomQuote.quote + '" ' + "by " + randomQuote.author )
     return "Here is your quote of the day: " + '"' + randomQuote.quote + '" ' + "by " + randomQuote.author
 
-    
+
 }
 
 const result = getRandomQuote()
 
 const transporter = nodemailer.createTransport({
     host: 'smtp.outlook.com',
-  port: 587,
-  secure: false,
-  auth: {
-      user: 'lookout-intothe@outlook.com',
-      pass: 'Vini11!!qq'
+    port: 587,
+    secure: false,
+    auth: {
+        user: `${userEmail}`,
+        pass: `${password}`
     }
 });
+
 const message = {
     from: 'lookout-intothe@outlook.com',
-    to:'vinnycesca@gmail.com',
+    to: 'vinnycesca@gmail.com',
     subject: "Quote of the Day",
     text: `Good Morning!\n\n${result}`
 }
@@ -183,10 +188,11 @@ const rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [new schedule.Range(0, 7)];
 rule.hour = 8;
 rule.minute = 0;
+
 ////////////////////////////////
 
 
-const job = schedule.scheduleJob(rule,function(){
+const job = schedule.scheduleJob(rule, function () {
     transporter.sendMail(message, (error, info) => {
         if (error) {
             console.log(error);
@@ -194,7 +200,13 @@ const job = schedule.scheduleJob(rule,function(){
             console.log(`Email sent: ${info.response}`);
         }
     });
-
+    console.log('Task running at 8am every day');
 })
 
+job.on('run', function() {
+    console.log("Job started running")
+})
+
+
+//PM2 breakdown: https://pm2.keymetrics.io/docs/usage/log-management/
 
