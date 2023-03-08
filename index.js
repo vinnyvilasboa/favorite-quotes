@@ -10,7 +10,7 @@ const User = require('./models/user')
 
 
 //Models
-mongoose.connect(process.env.MONGO_URI, {
+mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
@@ -155,6 +155,14 @@ const allQuotes = [
 const userEmail = process.env.EMAIL;
 const password = process.env.EMAIL_PASS;
 
+function getAllQuotes(){
+    return Quote.find({})
+}
+
+function getAllUsers(){
+    return User.find({})
+}
+
 
 function getRandomQuote() {
     const quoteDB = Quote.find({})
@@ -194,13 +202,20 @@ rule.minute = 0;
 
 
 const job = schedule.scheduleJob(rule, function () {
-    transporter.sendMail(message, (error, info) => {
-        if (error) {
-            console.log(error);
-        } else {
-            console.log(`Email sent: ${info.response}`);
-        }
-    });
+    let quotes = getAllQuotes()
+    const users = getAllUsers()
+    // loops through all users subscribed
+    for(let user of users){
+        //update the user receiveing the email
+        message.to = user;
+        transporter.sendMail(message, (error, info) => {
+            if (error) {
+                console.log(message.to, " didn't receive the email. Error: ", error);
+            } else {
+                console.log(`Email sent: ${info.response}`);
+            }
+        });
+    }
     console.log('Task running at 8am every day');
 })
 
