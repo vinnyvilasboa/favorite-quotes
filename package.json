@@ -3,6 +3,11 @@
     "bootstrap": "^5.2.3",
     "dotenv": "^16.0.3",
     "node-schedule": "^2.1.1",
-    "nodemailer": "^6.9.1"
+    "nodemailer": "^6.9.1",
+    "express": "^4.18.2",
+    "express-react-views": "^0.11.0",
+    "mongoose": "^7.0.1",
+    "nodemon": "^2.0.21"
+    
   }
 }

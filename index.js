@@ -1,6 +1,29 @@
+require('dotenv').config()
+const express  = require('express')
+const mongoose = require('mongoose')
+const app = express()
 const nodemailer = require('nodemailer');
 const schedule = require('node-schedule');
-require('dotenv').config();
+const port = 3000
+const Quote = require('./models/quote')
+const User = require('./models/user')
+
+
+//Models
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+
+//Middleware
+app.use(express.urlencoded({extended: true}))
+
+app.use((result, res) => {
+    next()
+})
+
+// myscript.js
+alert("Hello, world!");
 
 const allQuotes = [
     {
@@ -134,9 +157,10 @@ const password = process.env.EMAIL_PASS;
 
 
 function getRandomQuote() {
-    let randomIndex = Math.floor(Math.random() * allQuotes.length);
-    let randomQuote = allQuotes[randomIndex]
-    console.log("Here is your quote of the day: " + '"' + randomQuote.quote + '" ' + "by " + randomQuote.author)
+    const quoteDB = Quote.find({})
+    let randomIndex = Math.floor(Math.random() * quoteDB.length);
+    let randomQuote = quoteDB[randomIndex]
+    console.log("Here is your quote of the day: " + '"' + randomQuote.quote + '" ' + "by " + randomQuote.author )
     return "Here is your quote of the day: " + '"' + randomQuote.quote + '" ' + "by " + randomQuote.author
 
 
