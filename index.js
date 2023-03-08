@@ -157,8 +157,9 @@ const password = process.env.EMAIL_PASS;
 
 
 function getRandomQuote() {
-    let randomIndex = Math.floor(Math.random() * allQuotes.length);
-    let randomQuote = allQuotes[randomIndex]
+    const quoteDB = Quote.find({})
+    let randomIndex = Math.floor(Math.random() * quoteDB.length);
+    let randomQuote = quoteDB[randomIndex]
     console.log("Here is your quote of the day: " + '"' + randomQuote.quote + '" ' + "by " + randomQuote.author )
     return "Here is your quote of the day: " + '"' + randomQuote.quote + '" ' + "by " + randomQuote.author
 
