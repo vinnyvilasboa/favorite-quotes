@@ -1,59 +1,98 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <title>Psych•Bite</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <!-- Bootstrap JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <!--  JavaScript -->
-    <script src="index.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
 
-    <title> P S Y C H • B I T E</title>
+        .jumbotron {
+            height: 60vh;
+            background: white;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #6D87A3;
+        }
+
+        .navbar {
+            background-color: #6D87A3;
+            color: #faf7f7;
+            padding: 20px;
+            border-radius: 0 0 20px 20px;
+        }
+
+        a {
+            color: white;
+        }
+
+        a:hover {
+            color: black;
+        }
+
+        .row {
+            height: calc(60vh / 3);
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Nav -->
+    <nav class="navbar navbar-expand-md">
+        <a class="navbar-brand">Psych•Bite</a>
+    </nav>
+    <!-- Landing -->
     <div class="container">
-        <h1>P S Y C H • B I T E</h1>
-    </div>
-    <div class="container">
-        <!-- First Row -->
-        <div class="row">
-            <div class="col">
-                <img src="path/to/image.jpg" alt="Image">
-            </div>
+        <div class="jumbotron">
+            <h1 class="display-4">Welcome to Psych•Bite</h1>
+            <p class="lead">A service that emails a random quote from either <br /> Dr. Jordan Peterson, C.S Lewis or
+                Naval
+                Ravikant everyday at <b>8am</b> to start your morning with a bite of knowledge.</p>
         </div>
+        <!-- Email field -->
+        <div class="container">
+            <form>
+                <div class="form-group row">
+                    <div class="col-md-6 offset-md-3">
 
-        <!-- Second Row -->
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <form>
-                    <div class="form-group">
-                        <label for="emailInput">Email address</label>
-                        <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp"
-                            placeholder="Enter email">
-                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                            else.</small>
+                        <label for="inputEmail" class="sr-only">Enter Email</label>
+                        <input type="email" id="inputEmail" class="form-control" placeholder="Enter email">
                     </div>
-                </form>
-            </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-6 offset-md-3">
+                        <button type="submit" class="btn btn-primary btn-block">Subscribe</button>
+                    </div>
+                </div>
+            </form>
         </div>
-
-        <!-- Third Row -->
+        <!-- Evenly Sized Rows -->
         <div class="row">
-            <div class="col-md-6">
-                <img src="path/to/image.jpg" alt="Image">
-            </div>
-            <div class="col-md-6">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in enim vel nulla tristique auctor.
-                    Proin suscipit mauris quis nisi suscipit, eget maximus tellus dictum. Nulla facilisi. Phasellus
-                    malesuada aliquam ultrices. Morbi porta malesuada magna, quis venenatis mi hendrerit a. </p>
-            </div>
+            <div class="col-sm-3 bg-dark"></div>
+            <div class="col-sm-9 bg-light"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 bg-dark"></div>
+            <div class="col-sm-9 bg-light"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 bg-dark"></div>
+            <div class="col-sm-9 bg-light"></div>
         </div>
     </div>
-
+   <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper-base.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

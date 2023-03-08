@@ -19,13 +19,14 @@ npm install
 ```
 
 ```
-npm i node-schedule nodemailer dotenv pm2
+npm i node-schedule nodemailer dotenv pm2 http-server
 ```
 
 ## Usage
 
 ```Run
 # Run App: pm2 start index.js
+# Run Front End: http-server
 # Restart App: pm2 restart index.js
 # App Log: pm2 logs 
 # Side note: you can check if app is running by checking log
