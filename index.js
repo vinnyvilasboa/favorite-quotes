@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 const schedule = require('node-schedule');
 const functions = require('./server')
 
-
+// email credentials
 const userEmail = process.env.EMAIL;
 const password = process.env.EMAIL_PASS;
 
@@ -33,7 +33,9 @@ async function getRandomQuote() {
 
 }
 
-const result = getRandomQuote()
+
+async function sendEmails(){
+const result = await getRandomQuote()
 
 const transporter = nodemailer.createTransport({
     host: 'smtp.outlook.com',
@@ -47,15 +49,15 @@ const transporter = nodemailer.createTransport({
 
 const message = {
     from: 'lookout-intothe@outlook.com',
-    to: 'vinnyvilasboa@gmail.com',
+    to: '',
     subject: "Quote of the Day",
-    text: `Good Morning!\n\n${await result}`
+    text: `Good Morning!\n\n${result}`
 }
 ////////////////////////////////
 const rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [new schedule.Range(0, 7)];
-rule.hour = 12;
-rule.minute = 30;
+rule.hour = 8;
+rule.minute = 0;
 
 ////////////////////////////////
 
@@ -78,7 +80,9 @@ const job = schedule.scheduleJob(rule, async function () {
     console.log('Task running at 8am every day');
 })
 
+}
 
+sendEmails()
 
 //PM2 breakdown: https://pm2.keymetrics.io/docs/usage/log-management/
 
