@@ -3,10 +3,10 @@ const express  = require('express')
 const mongoose = require('mongoose')
 const app = express()
 const port = 3000
-const Quote = require('./Models/quote')
-const User = require('./Models/user')
+const Quote = require('./models/quote')
+const User = require('./models/user')
 // This is where the old quotes will be stored
-const Archive = require('./Models/archive')
+const Archive = require('./models/archive')
 
 //MVC SETUP
 //views
@@ -80,8 +80,8 @@ const newArchive = (quote) => {
 }
 
 //Delete Archive
-const removeArchive = (id) => {
-   Archive.findByIdAndDelete(id)
+const removeArchive = async (id) => {
+   await Archive.findByIdAndDelete(id)
 }
 
 
