@@ -21,11 +21,11 @@ async function getRandomQuote() {
     }
     // add quote to archive until there are 7, then replace new one with an existing one. 
     if(archive.length < 7){
-        functions.newArchive({_id: quoteDB[randomIndex]._id})
+        functions.newArchive({_id: randomQuote._id})
     } else {
-        let id = archive[0]
+        let id = archive[0]._id
         functions.removeArchive(id)
-        functions.newArchive({_id: quoteDB[randomIndex]._id})
+        functions.newArchive({_id: randomQuote._id})
     }
     console.log("Here is your quote of the day: " + '"' + randomQuote.quote + '" ' + "by " + randomQuote.author )
     return "Here is your quote of the day: " + '"' + randomQuote.quote + '" ' + "by " + randomQuote.author
@@ -68,7 +68,7 @@ const job = schedule.scheduleJob(rule, async function () {
     // loops through all users subscribed
     for(let user of users){
         //update the user receiveing the email
-        message.to = user;
+        message.to = user.email;
         transporter.sendMail(message, (error, info) => {
             if (error) {
                 console.log(message.to, " didn't receive the email. Error: ", error);
@@ -84,5 +84,5 @@ const job = schedule.scheduleJob(rule, async function () {
 
 sendEmails()
 
-//PM2 breakdown: https://pm2.keymetrics.io/docs/usage/log-management/
+// PM2 breakdown: https://pm2.keymetrics.io/docs/usage/log-management/
 
