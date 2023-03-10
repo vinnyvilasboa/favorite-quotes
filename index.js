@@ -28,8 +28,7 @@ async function getRandomQuote() {
         functions.newArchive({_id: quoteDB[randomIndex]._id})
     }
     console.log("Here is your quote of the day: " + '"' + randomQuote.quote + '" ' + "by " + randomQuote.author )
-    return "Here is your quote of the day: " + '"' + randomQuote.quote + '" ' + "by " + randomQuote.author
-
+    return "Here is your quote of the day: " + '" "' + randomQuote.quote + '" "' + "by " + randomQuote.author 
 
 }
 
@@ -51,8 +50,9 @@ const message = {
     from: 'lookout-intothe@outlook.com',
     to: '',
     subject: "Quote of the Day",
-    text: `Good Morning!\n\n${result}`
-}
+    html: '<h1>Good Morning!</h1><br/>' + result
+};
+
 ////////////////////////////////
 const rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [new schedule.Range(0, 7)];
