@@ -80,8 +80,9 @@ const newArchive = (quote) => {
 }
 
 //Delete Archive
-const removeArchive = (id) => {
-   Archive.findByIdAndDelete(id)
+const removeArchive = async (id) => {
+    console.log('Delete!!!!!')
+   await Archive.findByIdAndDelete(id).then(() => {console.log('deleted')})
 }
 
 
