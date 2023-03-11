@@ -19,6 +19,8 @@ mongoose.connect(process.env.MONGO_URL, {
     useUnifiedTopology: true,
 })
 
+mongoose.set('strictQuery', false)
+
 //Middleware
 app.use(express.urlencoded({extended: true}))
 
@@ -93,6 +95,6 @@ module.exports = {
     removeArchive
 }
 
-app.listen(port, () => {
-    console.log(`listening on port: ${port}`)
-})
+// app.listen(port, () => {
+//     console.log(`listening on port: ${port}`)
+// })

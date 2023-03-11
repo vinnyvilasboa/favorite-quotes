@@ -67,6 +67,7 @@ const job = schedule.scheduleJob(rule, async function () {
     const users = await functions.getAllUsers()
     // loops through all users subscribed
     for(let user of users){
+        console.log(user)
         //update the user receiveing the email
         message.to = user.email;
         transporter.sendMail(message, (error, info) => {
