@@ -9,6 +9,8 @@ const User = require('./models/user')
 const Archive = require('./models/archive')
 
 //MVC SETUP
+app.use(express.static('public'));
+
 //views
 app.set('view engine', 'jsx')
 app.engine('jsx', require('express-react-views').createEngine())
@@ -29,7 +31,7 @@ app.use((req, res, next) => {
 })
 
 app.get('/', (req, res) => {
-    res.send('<h1>Hello World</h1>')
+    res.render('Home')
 })
 
 
@@ -86,6 +88,11 @@ const removeArchive = async (id) => {
    await Archive.findByIdAndDelete(id)
 }
 
+//Catch all
+app.get('/*', (req, res) => {
+    res.render('Home.jsx')
+})
+
 
 module.exports = {
     getAllQuotes,
@@ -95,6 +102,6 @@ module.exports = {
     removeArchive
 }
 
-// app.listen(port, () => {
-//     console.log(`listening on port: ${port}`)
-// })
+app.listen(port, () => {
+    console.log(`listening on port: ${port}`)
+})
