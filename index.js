@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer');
 const schedule = require('node-schedule');
 const functions = require('./server')
+const PORT = process.env.PORT
 
 // email credentials
 const userEmail = process.env.EMAIL;
@@ -93,7 +94,13 @@ async function sendEmails(){
 
 }
 
+// module.exports = sendEmails
 sendEmails().catch(console.error)
+
+functions.app.listen(PORT, () => {
+    console.log(`listening on port: ${PORT}`)
+})
+
 
 // PM2 breakdown: https://pm2.keymetrics.io/docs/usage/log-management/
 
