@@ -99,9 +99,10 @@ module.exports = {
     getAllUsers,
     allArchives,
     newArchive,
-    removeArchive
+    removeArchive,
+    app
 }
 
-app.listen(port, () => {
-    console.log(`listening on port: ${port}`)
-})
+// app.listen(port, () => {
+//     console.log(`listening on port: ${port}`)
+// })
