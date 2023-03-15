@@ -9,6 +9,8 @@ const User = require('./models/user')
 const Archive = require('./models/archive')
 
 //MVC SETUP
+app.use(express.static('public'));
+
 //views
 app.set('view engine', 'jsx')
 app.engine('jsx', require('express-react-views').createEngine())
@@ -19,6 +21,8 @@ mongoose.connect(process.env.MONGO_URL, {
     useUnifiedTopology: true,
 })
 
+mongoose.set('strictQuery', false)
+
 //Middleware
 app.use(express.urlencoded({extended: true}))
 
@@ -27,7 +31,7 @@ app.use((req, res, next) => {
 })
 
 app.get('/', (req, res) => {
-    res.send('<h1>Hello World</h1>')
+    res.render('Home')
 })
 
 
@@ -83,6 +87,11 @@ const newArchive = (quote) => {
 const removeArchive = async (id) => {
    await Archive.findByIdAndDelete(id)
 }
+
+//Catch all
+app.get('/*', (req, res) => {
+    res.render('Home.jsx')
+})
 
 
 module.exports = {

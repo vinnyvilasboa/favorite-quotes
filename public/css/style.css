@@ -1,0 +1,35 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.jumbotron {
+    height: 60vh;
+    background: white;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #6D87A3;
+}
+
+.navbar {
+    background-color: #6D87A3;
+    color: #faf7f7;
+    padding: 20px;
+    border-radius: 0 0 20px 20px;
+}
+
+a {
+    color: white;
+}
+
+a:hover {
+    color: black;
+}
+
+.row {
+    height: calc(60vh / 3);
+}
