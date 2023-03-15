@@ -21,7 +21,7 @@ mongoose.connect(process.env.MONGO_URL, {
     useUnifiedTopology: true,
 })
 
-mongoose.set('strictQuery', false)
+mongoose.set('strictQuery', true)
 
 //Middleware
 app.use(express.urlencoded({extended: true}))

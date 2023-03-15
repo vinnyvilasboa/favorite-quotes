@@ -62,24 +62,13 @@ async function sendEmails(){
     rule.dayOfWeek = [new schedule.Range(0, 7)];
     rule.hour = 8;
     rule.minute = 0;
-    // for(let user of users){
-    //     message.to += ', ', user.email
-    // }
-    // console.log(message.to)
 
-    ////////////////////////////////
-    // let info = await transporter.sendMail({
-    //     from: '"Daily Quotes" lookout-intothe@outlook.com', // sender address
-    //     to: "lucas2carlos@gmail.com", // list of receivers
-    //     subject: "Quote of the Day", // Subject line
-    //     text: `Good Morning!\n\n${result}`, // plain text body
-    //     // html: `<b>Good Morning!\n\n${result}</b>`, // html body
-    //   });
-    //   console.log("Message sent: %s", info.messageId);
+    console.log(rule)
     const job = schedule.scheduleJob(rule, async function () {
         // loops through all users subscribed
         for(let user of users){
             message.to = user.email
+            console.log(message.to)
             //update the user receiveing the email
             transporter.sendMail(message, (error, info) => {
                 if (error) {
@@ -94,7 +83,6 @@ async function sendEmails(){
 
 }
 
-// module.exports = sendEmails
 sendEmails().catch(console.error)
 
 functions.app.listen(PORT, () => {
