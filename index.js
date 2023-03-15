@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer');
 const schedule = require('node-schedule');
 const functions = require('./server')
+const PORT = process.env.PORT
 
 // email credentials
 const userEmail = process.env.EMAIL;
@@ -81,7 +82,4 @@ async function sendEmails() {
         })}
     
 
-
-
-sendEmails().catch(console.error)
 
