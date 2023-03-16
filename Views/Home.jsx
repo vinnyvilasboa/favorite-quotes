@@ -11,8 +11,8 @@ class Home extends React.Component {
                     <a className="navbar-brand" href="#" style={{ textDecoration: 'none' }}>
                         <img src="assets/coffee.svg" 
                         style={{ 
-                            width: '50px',
-                            height: '50px', 
+                            width: '3rem',
+                            height: '3rem', 
                             marginLeft: "30px",
                             marginRight: "30px" 
                             }} />  
@@ -26,7 +26,11 @@ class Home extends React.Component {
                         <div className="jumbotron" >
                             <h1 className="display-4">Welcome to Psych•Bite</h1>
                             <hr class="my-4" />
-                            <p className="lead">Fuel your mind with brilliance: <br />Wake up to a fresh, insightful quote every morning from the wise words of <br />Dr. Jordan Peterson, C.S. Lewis, or Naval Ravikant.</p>
+                            <div className="subtitle">
+                            <div class="col-md-8 offset-md-2"><p className="lead">Fuel your mind with brilliance: Wake up to a fresh, insightful quote every morning from the wise words of <i>Dr. Jordan Peterson, C.S. Lewis, or Naval Ravikant.</i></p></div>
+                            
+                            </div>
+                            
                         </div>
 
                     </div>
@@ -56,33 +60,36 @@ class Home extends React.Component {
 
                     {/* <!-- Evenly Sized Rows --> */}
                     <div className="author-container">
-                        <div className="row">
-                            <div className="col-sm-3 bg-light thumbnail1"></div>
-                            <div className="col-sm-9 bg-light author-text">
+                        <div className="row justify-content-around">
+                            <div className="col-sm-2 bg-light thumbnail1"></div>
+                            <div className=" col-sm-7  bg-light author-text">
                             <h4>Dr. Jordan Peterson</h4>
                             <p >Canadian clinical psychologist and professor known for his lectures and books on psychology, religion, and politics. His work explores the relationship between individual responsibility and personal freedom, and he has become a polarizing figure in public discourse.</p>
                             
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="col-sm-3  bg-light thumbnail2"></div>
-                            <div className="col-sm-9 bg-light author-text">
+                        <div className="row justify-content-around">
+                            <div className="col-sm-2  bg-light thumbnail2"></div>
+                            <div className=" col-sm-7 bg-light author-text">
                             <h4>C.S Lewis</h4>
                             <p >British writer and scholar famous for his Christian apologetics and fantasy novels. He wrote extensively on theology, ethics, and the nature of humanity, and his works continue to influence Christian thinking and popular culture today.</p>
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="col-sm-3  bg-light thumbnail3"></div>
-                            <div className="col-sm-9 bg-light author-text">
+                        <div className="row justify-content-around">
+                            <div className="col-sm-2  bg-light thumbnail3"></div>
+                            <div className=" col-sm-7 bg-light author-text">
                             <h4>Naval Ravikant</h4>
-                            <p>British writer and scholar famous for his Christian apologetics and fantasy novels. He wrote extensively on theology, ethics, and the nature of humanity, and his works continue to influence Christian thinking and popular culture today.</p>
+                            <p>An entrepreneur, investor, and writer known for his ideas on startups, wealth, and personal growth. He is the founder of AngelList and has been an early investor in several successful startups. His writing focuses on the principles of building wealth and living a fulfilling life.</p>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div className="footer" style={{minHeight: "20vh"}}></div>
+                
             </Layout>
         )
     }
 }
+
 
 module.exports = Home
