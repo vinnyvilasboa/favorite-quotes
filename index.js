@@ -33,7 +33,7 @@ async function getRandomQuote() {
 
 }
 
-async function sendEmails(){
+async function sendEmails() {
     console.log('Send mail function')
     const result = await getRandomQuote()
     let quotes = await functions.getAllQuotes()
@@ -51,31 +51,33 @@ async function sendEmails(){
 
     const message = {
         from: 'lookout-intothe@outlook.com',
-        to: 'lucas2carlos@hotmail.com',
+        to: 'vinnycesca@gmail.com',
         subject: "Quote of the Day",
         text: `Good Morning!\n\n${result}`
     }
+
+    for(let user of users){
+        message.to += `, ${user.email}`
+    }
+    console.log(message.to)
+   
     ////////////////////////////////
     const rule = new schedule.RecurrenceRule();
     rule.dayOfWeek = [new schedule.Range(0, 7)];
-    rule.hour = 8;
-    rule.minute = 0;
+    rule.hour = 7;
+    rule.minute = 00;
 
     console.log(rule)
     const job = schedule.scheduleJob(rule, async function () {
         // loops through all users subscribed
-        for(let user of users){
-            message.to = user.email
-            console.log(message.to)
-            //update the user receiveing the email
-            transporter.sendMail(message, (error, info) => {
-                if (error) {
-                    console.log(message.to, " didn't receive the email. Error: ", error);
-                } else {
-                    console.log(`Email sent: ${info.response}`);
-                }
-            });
-        }
+        // update the user receiveing the email
+        transporter.sendMail(message, (error, info) => {
+            if (error) {
+                console.log(message.to, " didn't receive the email. Error: ", error);
+            } else {
+                console.log(`Email sent: ${info.response}`);
+            }
+        });
         console.log('Task running at 8am every day');
     })
 
@@ -87,5 +89,3 @@ functions.app.listen(PORT, () => {
     console.log(`listening on port: ${PORT}`)
 })
 
-
-// PM2 breakdown: https://pm2.keymetrics.io/docs/usage/log-management/
