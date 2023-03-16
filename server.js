@@ -49,6 +49,16 @@ const allArchives = async () => {
     return await Archive.find({})
 }
 
+//Delete User
+app.delete('/user', (req, res) => {
+    User.findOneAndDelete({email: req.body}, (err) => {
+        if(err){
+            res.status(400).send(err)
+        } else {
+            res.render('Home')
+        }
+    })
+})
 
 // Create User
 app.post('/user', (req, res) => {
