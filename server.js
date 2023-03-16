@@ -2,7 +2,6 @@ require('dotenv').config()
 const express  = require('express')
 const mongoose = require('mongoose')
 const app = express()
-const port = 3000
 const Quote = require('./models/quote')
 const User = require('./models/user')
 // This is where the old quotes will be stored
@@ -49,6 +48,16 @@ const allArchives = async () => {
     return await Archive.find({})
 }
 
+//Delete User
+app.delete('/user', (req, res) => {
+    User.findOneAndDelete({email: req.body}, (err) => {
+        if(err){
+            res.status(400).send(err)
+        } else {
+            res.render('Home')
+        }
+    })
+})
 
 // Create User
 app.post('/user', (req, res) => {
@@ -102,7 +111,3 @@ module.exports = {
     removeArchive,
     app
 }
-
-// app.listen(port, () => {
-//     console.log(`listening on port: ${port}`)
-// })
