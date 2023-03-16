@@ -16,24 +16,22 @@ async function getRandomQuote() {
     let randomIndex = Math.floor(Math.random() * quoteDB.length);
     let randomQuote = quoteDB[randomIndex]
     // loop if quote is included in archive
-    while(archive.includes(randomQuote._id)){
+    while (archive.includes(randomQuote._id)) {
         randomIndex = Math.floor(Math.random() * quoteDB.length);
         randomQuote = quoteDB[randomIndex]
     }
     // add quote to archive until there are 7, then replace new one with an existing one. 
-    if(archive.length < 7){
-        functions.newArchive({_id: randomQuote._id})
+    if (archive.length < 7) {
+        functions.newArchive({ _id: randomQuote._id })
     } else {
         let id = archive[0]._id
         functions.removeArchive(id)
-        functions.newArchive({_id: randomQuote._id})
+        functions.newArchive({ _id: randomQuote._id })
     }
-    console.log("Here is your quote of the day: " + '"' + randomQuote.quote + '" ' + "by " + randomQuote.author )
-    return "Here is your quote of the day: " + '"' + randomQuote.quote + '" ' + "by " + randomQuote.author
-
+    console.log("Here is your quote of the day: " + '"' + randomQuote.quote + '" ' + "by " + randomQuote.author)
+    return "Here is your quote of the day: " + '" "' + randomQuote.quote + '" "' + "by " + randomQuote.author
 
 }
-
 
 async function sendEmails(){
     console.log('Send mail function')
@@ -91,4 +89,3 @@ functions.app.listen(PORT, () => {
 
 
 // PM2 breakdown: https://pm2.keymetrics.io/docs/usage/log-management/
-
