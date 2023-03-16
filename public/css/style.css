@@ -30,10 +30,10 @@ h1 {
     background-color: var(--primary-color-0);
     padding: 20px;
     box-shadow: var(--bottom-shadow)
-
 }
+
 .navbar-brand{
-    color: var(--primary-color-3);
+    color: var(--primary-color-2);
     font-size: 36px;
     font-weight: 800;
 }
@@ -107,12 +107,17 @@ h1 {
     background-repeat: no-repeat;
     border-radius: 10px;
 }
+
+.author-text{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items:center;
+}
 /* Form */
 #submitBtn {
     background-color: var(--primary-color-3);
 }
-
-
 
 
 a {
