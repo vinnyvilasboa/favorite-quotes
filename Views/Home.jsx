@@ -23,17 +23,17 @@ class Home extends React.Component {
                     </div>
                     {/* <!-- Email field --> */}
                     <div className="container">
-                        <form>
+                        <form action="/user" method="POST">
                             <div className="form-group row">
                                 <div className="col-md-6 offset-md-3">
 
                                     <label htmlFor="inputEmail" className="sr-only">Enter Email</label>
-                                    <input type="email" id="inputEmail" className="form-control" placeholder="Enter email"/>
+                                    <input type="email" name="email" id="inputEmail" className="form-control" placeholder="Enter email"/>
                                 </div>
                             </div>
                             <div className="form-group row">
                                 <div className="col-md-6 offset-md-3">
-                                    <button type="submit" id="submitBtn" className="btn btn-primary btn-block">Subscribe</button>
+                                    <input type="submit" id="submitBtn" className="btn btn-primary btn-block" value="Subscribe" ></input>
                                 </div>
                             </div>
                         </form>

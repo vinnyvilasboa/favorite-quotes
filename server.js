@@ -52,7 +52,7 @@ const allArchives = async () => {
 
 // Create User
 app.post('/user', (req, res) => {
-    User.create(req.body, (err, createdUSer) => {
+    User.create(req.body, (err, createdUser) => {
         if(err){
             res.status(403).send(err)
         } else {

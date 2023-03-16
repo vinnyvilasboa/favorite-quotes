@@ -64,7 +64,7 @@ async function sendEmails() {
     ////////////////////////////////
     const rule = new schedule.RecurrenceRule();
     rule.dayOfWeek = [new schedule.Range(0, 7)];
-    rule.hour = 7;
+    rule.hour = 8;
     rule.minute = 00;
 
     console.log(rule)
