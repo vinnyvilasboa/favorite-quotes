@@ -1,25 +1,87 @@
+/* Root */
+:root {
+    --primary-color-0: white;
+    --primary-color-1: #dde7dd;
+    --primary-color-2: #6a8f6b;
+    --primary-color-3: #221c42;
+    --primary-color-4: #ffe0c9;
+    --bottom-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+    --box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
 body {
     margin: 0;
     padding: 0;
+    background: var(--primary-color-1);
 }
 
+h1 {
+    color: var(--primary-color-2);
+}
+
+
+/* Nav */
+.navbar {
+    background-color: var(--primary-color-0);
+    padding: 20px;
+    box-shadow: var(--bottom-shadow)
+
+}
+.navbar-brand{
+    color: var(--primary-color-2);
+}
+
+
+/* Header */
+.header{
+    min-height: 40vh;
+}
 .jumbotron {
-    height: 60vh;
-    background: white;
+   
+    background: var(--primary-color-1);
+    margin-top: 40px;
+    margin-bottom: 0;
     background-size: cover;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: end;
     align-items: center;
     text-align: center;
-    color: #6D87A3;
+    color: var(--primary-color-2);
+    box-shadow: var(--box-shadow);
 }
 
-.navbar {
-    background-color: #6D87A3;
-    color: #faf7f7;
-    padding: 20px;
+.display-4{
+    font-size: 3rem;;
+    font-weight: 700;
+    color: var(--primary-color-0);
+    
 }
+
+.lead{
+    font-size: 24px;
+    font-weight:700;
+    
+}
+
+
+
+/* Authors */
+.row {
+    height: calc(60vh / 3);
+}
+
+
+/* Form */
+#submitBtn {
+    background-color: var(--primary-color-3);
+}
+
+/* .form-group{
+    padding:0;
+} */
+
+
 
 a {
     color: white;
@@ -27,8 +89,4 @@ a {
 
 a:hover {
     color: black;
-}
-
-.row {
-    height: calc(60vh / 3);
 }
