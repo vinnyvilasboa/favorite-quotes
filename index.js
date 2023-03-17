@@ -57,7 +57,7 @@ async function sendEmails() {
         text: `Good Morning!\n\n${result}`,
         envelope: {
             from: 'lookout-intothe@outlook.com',
-            to: "Subscribers <vinnycesca@gmail.com>",
+            to: "Subscribers <vinnycesca@gmail.com>"
         }
     }
 
