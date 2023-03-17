@@ -51,15 +51,25 @@ async function sendEmails() {
 
     const message = {
         from: 'lookout-intothe@outlook.com',
-        to: 'vinnycesca@gmail.com',
+        to: "Subscribers <vinnycesca@gmail.com>",
+        bcc: '',
         subject: "Quote of the Day",
-        text: `Good Morning!\n\n${result}`
+        text: `Good Morning!\n\n${result}`,
+        envelope: {
+            from: 'lookout-intothe@outlook.com',
+            to: "Subscribers <vinnycesca@gmail.com>",
+        }
     }
 
     for(let user of users){
-        message.to += `, ${user.email}`
+        if(message.bcc === ''){
+            message.bcc = `${user.email}`
+        } else {
+            message.bcc += `, ${user.email}`
+        }
     }
     console.log(message.to)
+    console.log(message.bcc)
    
     ////////////////////////////////
     const rule = new schedule.RecurrenceRule();
@@ -67,7 +77,6 @@ async function sendEmails() {
     rule.hour = 8;
     rule.minute = 00;
 
-    console.log(rule)
     const job = schedule.scheduleJob(rule, async function () {
         // loops through all users subscribed
         // update the user receiveing the email
