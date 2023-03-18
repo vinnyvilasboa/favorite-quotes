@@ -36,7 +36,6 @@ async function getRandomQuote() {
 async function sendEmails() {
     console.log('Send mail function')
     const result = await getRandomQuote()
-    let quotes = await functions.getAllQuotes()
     const users = await functions.getAllUsers()
 
     const transporter = nodemailer.createTransport({
@@ -50,15 +49,11 @@ async function sendEmails() {
     });
 
     const message = {
-        from: 'lookout-intothe@outlook.com',
+        from: 'Daily Quotes <lookout-intothe@outlook.com>',
         to: "Subscribers <vinnycesca@gmail.com>",
         bcc: '',
         subject: "Quote of the Day",
         text: `Good Morning!\n\n${result}`,
-        envelope: {
-            from: 'lookout-intothe@outlook.com',
-            to: "Subscribers <vinnycesca@gmail.com>"
-        }
     }
 
     for(let user of users){
@@ -68,8 +63,6 @@ async function sendEmails() {
             message.bcc += `, ${user.email}`
         }
     }
-    console.log(message.to)
-    console.log(message.bcc)
    
     ////////////////////////////////
     const rule = new schedule.RecurrenceRule();
@@ -82,12 +75,12 @@ async function sendEmails() {
         // update the user receiveing the email
         transporter.sendMail(message, (error, info) => {
             if (error) {
-                console.log(message.to, " didn't receive the email. Error: ", error);
+                console.log(message.bcc, " didn't receive the email. Error: ", error);
             } else {
                 console.log(`Email sent: ${info.response}`);
             }
         });
-        console.log('Task running at 8am every day');
+        console.log(`Task running at ${rule.hour}am every day`);
     })
 
 }
