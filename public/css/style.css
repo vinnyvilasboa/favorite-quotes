@@ -8,7 +8,7 @@
     --primary-color-5: #FAF9F6;
     --bottom-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
     --box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-    --thumbnail-size: 200px;
+    --thumbnail-size: 150px;
 
 }
 
@@ -55,7 +55,7 @@ a:hover {
 }
 
 .jumbotron {
-    min-height: 40vh;
+    height: 70vh;
     background-image: url('../assets/mug2-header.jpg');
     background-size:cover;
     background-position: center center;
@@ -63,14 +63,14 @@ a:hover {
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: end;
+    justify-content: center;
     align-items: center;
     text-align: center;
     box-shadow: var(--box-shadow);
     border-radius: 10px;
 }
 
-.display-4 {
+.display-5 {
     font-size: 3rem;
     font-weight: 700;
     color: var(--primary-color-0);
@@ -79,7 +79,7 @@ a:hover {
 }
 
 .lead {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: var(--primary-color-0);
     letter-spacing: 1px;
@@ -123,6 +123,7 @@ a:hover {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    margin: 0 10px 0 10px; 
 
 }
 
@@ -132,6 +133,7 @@ a:hover {
     background-image: url('/assets/jp-thumbnail.jpeg');
     background-size: var(--thumbnail-size);
     background-repeat: no-repeat;
+    background-size: cover;
     border-radius: 10px;
     box-shadow: var(--box-shadow);
 
@@ -140,6 +142,7 @@ a:hover {
 .thumbnail2 {
     background-image: url('/assets/cs-thumbnail.jpeg');
     background-size: var(--thumbnail-size);
+    background-size: cover;
     background-repeat: no-repeat;
     border-radius: 10px;
     box-shadow: var(--box-shadow);
@@ -149,6 +152,7 @@ a:hover {
     background-image: url('/assets/nr-thumbnail.jpeg');
     background-size: var(--thumbnail-size);
     background-repeat: no-repeat;
+    background-size: cover;
     border-radius: 10px;
     box-shadow: var(--box-shadow);
 }
@@ -168,7 +172,7 @@ a:hover {
         box-shadow: var(--box-shadow);
         text-align: justify;
         text-justify: distribute-all-lines;
-        padding: 10px 20px 0 20px;
+        margin: 10px 20px 0 20px;
     }
 
     /* ////////////////////////////////  */

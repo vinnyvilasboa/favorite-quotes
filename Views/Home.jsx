@@ -24,8 +24,8 @@ class Home extends React.Component {
                 <div className="container">
                     <div className="container header">
                         <div className="jumbotron" >
-                            <h1 className="display-4">Welcome to Psych•Bite</h1>
-                            <hr class="my-4" />
+                            <h1 className="display-5">Welcome to Psych•Bite</h1>
+                            <hr className="my-4" />
                             <div className="subtitle">
                             <div class="col-md-8 offset-md-2"><p className="lead">Fuel your mind with brilliance: Wake up to a fresh, insightful quote every morning from the wise words of <i>Dr. Jordan Peterson, C.S. Lewis, or Naval Ravikant.</i></p></div>
                             
@@ -37,7 +37,7 @@ class Home extends React.Component {
                     {/* <!-- Email field --> */}
                     <div className="container ">
                         <form action="/user" method="POST">
-                            <div className="form-group row d-flex align-items-center justify-content-center mh-100 w-75 p-3">
+                            <div className="form-group row d-flex align-items-center justify-content-center">
                                 <div className="col-md-6 ">
                                     <label htmlFor="inputEmail" className="sr-only">Enter Email</label>
                                     <input 
@@ -60,7 +60,7 @@ class Home extends React.Component {
 
                     {/* <!-- Evenly Sized Rows --> */}
                     <div className="author-container">
-                        <div className="row justify-content-around">
+                        <div className="row justify-content-around" style={{minHeight:"25vh"}}>
                             <div className="col-sm-2 bg-light thumbnail1"></div>
                             <div className=" col-sm-7  bg-light author-text">
                             <h4>Dr. Jordan Peterson</h4>
@@ -68,14 +68,14 @@ class Home extends React.Component {
                             
                             </div>
                         </div>
-                        <div className="row justify-content-around">
+                        <div className="row justify-content-around"  style={{minHeight:"25vh"}}>
                             <div className="col-sm-2  bg-light thumbnail2"></div>
                             <div className=" col-sm-7 bg-light author-text">
                             <h4>C.S Lewis</h4>
                             <p >British writer and scholar famous for his Christian apologetics and fantasy novels. He wrote extensively on theology, ethics, and the nature of humanity, and his works continue to influence Christian thinking and popular culture today.</p>
                             </div>
                         </div>
-                        <div className="row justify-content-around">
+                        <div className="row justify-content-around"  style={{minHeight:"25vh"}}>
                             <div className="col-sm-2  bg-light thumbnail3"></div>
                             <div className=" col-sm-7 bg-light author-text">
                             <h4>Naval Ravikant</h4>
