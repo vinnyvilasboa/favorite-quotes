@@ -28,8 +28,8 @@ async function getRandomQuote() {
         functions.removeArchive(id)
         functions.newArchive({ _id: randomQuote._id })
     }
-    console.log("Here is your quote of the day: " + '"' + randomQuote.quote + '" ' + "by " + randomQuote.author)
-    return "Here is your quote of the day: " + '" "' + randomQuote.quote + '" "' + "by " + randomQuote.author
+    console.log('Here is your quote of the day: "' + randomQuote.quote + '"' + ' by '  + randomQuote.author)
+    return 'Here is your quote of the day: "' + randomQuote.quote + '"' + ' by '  + randomQuote.author
 
 }
 
@@ -67,7 +67,7 @@ async function sendEmails() {
     ////////////////////////////////
     const rule = new schedule.RecurrenceRule();
     rule.dayOfWeek = [new schedule.Range(0, 7)];
-    rule.hour = 8;
+    rule.hour = 7;
     rule.minute = 00;
 
     const job = schedule.scheduleJob(rule, async function () {

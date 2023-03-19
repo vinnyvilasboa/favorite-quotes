@@ -37,7 +37,7 @@ class Home extends React.Component {
                     {/* <!-- Email field --> */}
                     <div className="container ">
                         <form action="/user" method="POST">
-                            <div className="form-group row d-flex align-items-center justify-content-center">
+                            <div className="form-group row d-flex align-items-center justify-content-center mh-100 w-75 p-3">
                                 <div className="col-md-6 ">
                                     <label htmlFor="inputEmail" className="sr-only">Enter Email</label>
                                     <input 
