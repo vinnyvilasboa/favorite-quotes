@@ -80,7 +80,7 @@ async function sendEmails() {
                 console.log(`Email sent: ${info.response}`);
             }
         });
-        console.log(`Task running at ${rule.hour}am every day`);
+        console.log(`Task running at ${rule.hour}am every day!`);
     })
 
 }
