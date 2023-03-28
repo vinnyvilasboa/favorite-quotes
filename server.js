@@ -1,18 +1,15 @@
-require('dotenv').config()
-const express  = require('express')
-const mongoose = require('mongoose')
-const app = express()
-const Quote = require('./models/quote')
-const User = require('./models/user')
-// This is where the old quotes will be stored
-const Archive = require('./models/archive')
 
-//MVC SETUP
-app.use(express.static('public'));
+
+
 
 //views
 app.set('view engine', 'jsx')
 app.engine('jsx', require('express-react-views').createEngine())
+
+
+//MVC SETUP
+app.use(express.static('public'));
+app.use(methodOverride('_method'))
 
 //Models
 mongoose.connect(process.env.MONGO_URL, {
@@ -103,11 +100,5 @@ app.get('/*', (req, res) => {
 })
 
 
-module.exports = {
-    getAllQuotes,
-    getAllUsers,
-    allArchives,
-    newArchive,
-    removeArchive,
-    app
-}
+
+
