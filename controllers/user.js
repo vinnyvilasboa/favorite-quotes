@@ -13,25 +13,25 @@ router.get('/', (req, res) =>{
 
 //Delete User
 router.delete('/user', (req, res) => {
-    User.findOneAndDelete({email: req.body}, (err) => {
-        if(err){
-            res.status(400).send(err)
-        } else {
+    User.findOneAndDelete({email: req.body})
+        .then(() => {
             res.render('Home')
-        }
-    })
+        })
+        .catch((err) => {
+            res.status(400).send(err)
+        })
 })
 
 
 // Create User
 router.post('/user', (req, res) => {
-    User.create(req.body, (err, createdUser) => {
-        if(err){
-            res.status(403).send(err)
-        } else {
+    User.create(req.body)
+        .then((user) => {
             res.render('Home')
-        }
-    })
+        })
+        .catch((err) => {
+            res.status(403).send(err)
+        })
 })
 
 
