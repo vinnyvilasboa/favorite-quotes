@@ -7,7 +7,12 @@ const router = express.Router()
 
 //Index
 router.get('/', (req, res) =>{
-    res.render('Home')
+    try{
+        res.render('Home')
+    } catch(err){
+        console.log(err)
+        res.status(400).json(err)
+    }
 })
 
 

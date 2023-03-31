@@ -27,7 +27,7 @@ class Home extends React.Component {
                             <h1 className="display-5"><b>Welcome to Psych Bite</b></h1>
                             <hr className="my-4" />
                             <div className="subtitle">
-                                <div class="col-md-8 offset-md-2"><p className="lead">Fuel your mind with brilliance: Wake up to a fresh, insightful quote every morning at <span style={{ color: "black" }}>7AM </span> from the wise words of <i>Dr. Jordan Peterson, C.S. Lewis, or Naval Ravikant!</i></p></div>
+                                <div className="col-md-8 offset-md-2"><p className="lead">Fuel your mind with brilliance: Wake up to a fresh, insightful quote every morning at <span style={{ color: "black" }}>7AM </span> from the wise words of <i>Dr. Jordan Peterson, C.S. Lewis, or Naval Ravikant!</i></p></div>
 
                             </div>
 
