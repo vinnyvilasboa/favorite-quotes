@@ -13,7 +13,7 @@ const Archive = require('./models/archive')
 const nodemailer = require('nodemailer');
 const schedule = require('node-schedule');
 // const functions = require('./server')
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 8000
 
 
 //views
