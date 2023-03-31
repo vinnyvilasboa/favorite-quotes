@@ -148,7 +148,6 @@ const getAllUsers = async () => {
     }
 }
 
-
 //Get all Archives
 const allArchives = async () => {
     try{
