@@ -6,6 +6,7 @@ const methodOverride = require('method-override')
 const app = express()
 const userController = require('./controllers/user')
 const quoteController = require('./controllers/quotes')
+const path = require('path')
 const Quote = require('./models/quote')
 const User = require('./models/user')
 // This is where the old quotes will be stored
@@ -13,7 +14,7 @@ const Archive = require('./models/archive')
 const nodemailer = require('nodemailer');
 const schedule = require('node-schedule');
 // const functions = require('./server')
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3000
 
 
 //views
@@ -26,7 +27,7 @@ app.engine('jsx', require('express-react-views').createEngine())
 
 //Models
 mongoose.set('strictQuery', true)
-mongoose.connect(process.env.MONGO_URL, {
+mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
@@ -38,19 +39,25 @@ app.use(express.urlencoded({extended: true}))
 app.use(methodOverride('_method'))
 app.use(express.static('public'));
 
-// app.use((req, res, next) => {
-//     next()
-// })
+app.use((req, res, next) => {
+    next()
+})
+
 
 // Routes
 app.use('/', userController)
 app.use('/quotes', quoteController)
+
+app.get('/*', (req, res) => {
+    res.redirect('/')
+})
 
 
 // email credentials
 const userEmail = process.env.EMAIL;
 const password = process.env.EMAIL_PASS;
 
+console.log(process.cwd())
 
 async function getRandomQuote() {
     // archive is where old quotes are stored
@@ -130,7 +137,6 @@ async function sendEmails() {
 }
 
 
-
 const getAllQuotes = async() => {
     try{
         const quotes = await Quote.find({})
@@ -150,6 +156,7 @@ const getAllUsers = async () => {
         return e
     }
 }
+
 
 //Get all Archives
 const allArchives = async () => {
