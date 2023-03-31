@@ -6,6 +6,7 @@ const methodOverride = require('method-override')
 const app = express()
 const userController = require('./controllers/user')
 const quoteController = require('./controllers/quotes')
+const path = require('path')
 const Quote = require('./models/quote')
 const User = require('./models/user')
 // This is where the old quotes will be stored
