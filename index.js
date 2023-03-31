@@ -49,6 +49,7 @@ const userEmail = process.env.EMAIL;
 const password = process.env.EMAIL_PASS;
 
 
+
 async function getRandomQuote() {
     // archive is where old quotes are stored
     const archive = await allArchives()
