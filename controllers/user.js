@@ -7,7 +7,7 @@ const router = express.Router()
 
 //Index
 router.get('/', (req, res) =>{
-    res.render('Home')
+    res.render('../views/Home')
 })
 
 
