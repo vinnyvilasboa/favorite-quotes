@@ -41,8 +41,15 @@ app.use(express.static('public'));
 
 
 // Routes
-app.use('/', userController)
+// app.use('/', userController)
+app.get('/', (req, res) => {
+    res.render('Home')
+})
 app.use('/quotes', quoteController)
+
+app.get('/*', (req, res) => {
+    res.redirect('/')
+})
 
 
 // email credentials
