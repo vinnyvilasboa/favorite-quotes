@@ -14,7 +14,7 @@ const Archive = require('./models/archive')
 const nodemailer = require('nodemailer');
 const schedule = require('node-schedule');
 // const functions = require('./server')
-const PORT = process.env.PORT || 8000
+const PORT = process.env.PORT || 3000
 
 
 //views
@@ -41,10 +41,7 @@ app.use(express.static('public'));
 
 
 // Routes
-// app.use('/', userController)
-app.get('/', (req, res) => {
-    res.render('Home')
-})
+app.use('/', userController)
 app.use('/quotes', quoteController)
 
 app.get('/*', (req, res) => {
