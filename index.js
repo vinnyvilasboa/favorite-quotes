@@ -57,7 +57,7 @@ app.get('/*', (req, res) => {
 const userEmail = process.env.EMAIL;
 const password = process.env.EMAIL_PASS;
 
-
+console.log(process.cwd())
 
 async function getRandomQuote() {
     // archive is where old quotes are stored
