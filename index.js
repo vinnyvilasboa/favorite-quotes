@@ -127,7 +127,6 @@ async function sendEmails() {
 }
 
 
-
 const getAllQuotes = async() => {
     try{
         const quotes = await Quote.find({})
