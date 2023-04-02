@@ -116,19 +116,12 @@ async function sendEmails() {
         text: `Good Morning!\n\n${result.quote} by ${result.author}`,
     }
 
-    // for(let user of users){
-    //     if(message.bcc === ''){
-    //         message.bcc = `${user.email}`
-    //     } else {
-    //         message.bcc += `, ${user.email}`
-    //     }
-    // }
    
     ////////////////////////////////
     const rule = new schedule.RecurrenceRule();
     rule.dayOfWeek = [new schedule.Range(0, 7)];
-    rule.hour = 1;
-    rule.minute = 11;
+    rule.hour = 7;
+    rule.minute = 00;
 
     const job = schedule.scheduleJob(rule, async function () {
         // loops through all users subscribed
@@ -164,26 +157,26 @@ async function sendEmails() {
         console.log(`Task running at ${rule.hour}am every day!`);
     })
 
-    for(let user of users){
-        message = {
-            from: 'Daily Quotes <lookout-intothe@outlook.com>',
-            subject: "Quote of the Day",
-            text: `Good Morning!\n\n${result.quote} by ${result.author}`,
-            html: `${emailHTML}`
-        }
-        message.to = `Subscribers <${user.email}>`
-        unsubscribeEmail = user.email
-        console.log(unsubscribeEmail)
+    // for(let user of users){
+    //     message = {
+    //         from: 'Daily Quotes <lookout-intothe@outlook.com>',
+    //         subject: "Quote of the Day",
+    //         text: `Good Morning!\n\n${result.quote} by ${result.author}`,
+    //         html: `${emailHTML}`
+    //     }
+    //     message.to = `Subscribers <${user.email}>`
+    //     unsubscribeEmail = user.email
+    //     console.log(unsubscribeEmail)
         
-        transporter.sendMail(message, (error, info) => {
-            if (error) {
-                console.log(message.to, " didn't receive the email. Error: ", error);
-            } else {
-                console.log(`Email sent: ${info.response}`);
-                console.log(info.accepted)
-            }
-        });
-    }
+    //     transporter.sendMail(message, (error, info) => {
+    //         if (error) {
+    //             console.log(message.to, " didn't receive the email. Error: ", error);
+    //         } else {
+    //             console.log(`Email sent: ${info.response}`);
+    //             console.log(info.accepted)
+    //         }
+    //     });
+    // }
 
 
     // message = {
