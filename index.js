@@ -83,10 +83,19 @@ async function getRandomQuote() {
 
 }
 
+let unsubscribeEmail
+
+
 async function sendEmails() {
     console.log('Send mail function')
     const result = await getRandomQuote()
     const users = await getAllUsers()
+    const emailHTML = `
+    <h2>Good Morning!</h2>
+    <p style="font-size:large"><span style="color:red">Here is your quote of the day: </span>${result}</p>
+    <br/>
+    <a href="https://psych-bite.herokuapp.com/user?email=${unsubscribeEmail}">Click me</a>
+    `
 
     const transporter = nodemailer.createTransport({
         host: 'smtp.outlook.com',
@@ -98,7 +107,7 @@ async function sendEmails() {
         }
     });
 
-    const message = {
+    let message = {
         from: 'Daily Quotes <lookout-intothe@outlook.com>',
         to: "Subscribers <vinnycesca@gmail.com>",
         bcc: '',
@@ -106,13 +115,13 @@ async function sendEmails() {
         text: `Good Morning!\n\n${result}`,
     }
 
-    for(let user of users){
-        if(message.bcc === ''){
-            message.bcc = `${user.email}`
-        } else {
-            message.bcc += `, ${user.email}`
-        }
-    }
+    // for(let user of users){
+    //     if(message.bcc === ''){
+    //         message.bcc = `${user.email}`
+    //     } else {
+    //         message.bcc += `, ${user.email}`
+    //     }
+    // }
    
     ////////////////////////////////
     const rule = new schedule.RecurrenceRule();
@@ -132,6 +141,46 @@ async function sendEmails() {
         });
         console.log(`Task running at ${rule.hour}am every day!`);
     })
+
+    // for(let user of users){
+    //     message = {
+    //         from: 'Daily Quotes <lookout-intothe@outlook.com>',
+    //         subject: "Quote of the Day",
+    //         text: `Good Morning!\n\n${result}`,
+    //         html: `${emailHTML}`
+    //     }
+    //     message.to = `Subscribers <${user.email}>`
+    //     unsubscribeEmail = user.email
+        
+    //     transporter.sendMail(message, (error, info) => {
+    //         if (error) {
+    //             console.log(message.to, " didn't receive the email. Error: ", error);
+    //         } else {
+    //             console.log(`Email sent: ${info.response}`);
+    //             console.log(info.accepted)
+    //         }
+    //     });
+    // }
+
+
+    // message = {
+    //     from: 'Daily Quotes <lookout-intothe@outlook.com>',
+    //     bcc: '',
+    //     subject: "Quote of the Day",
+    //     text: `Good Morning!\n\n${result}`,
+    //     html: `${emailHTML}`
+    // }
+    // message.to = `Subscribers <lucas2carlos@hotmail.com>`
+    // unsubscribeEmail = 'lucas2carlos@hotmail.com'
+    
+    // transporter.sendMail(message, (error, info) => {
+    //     if (error) {
+    //         console.log(message.to, " didn't receive the email. Error: ", error);
+    //     } else {
+    //         console.log(`Email sent: ${info.response}`);
+    //         console.log(info.accepted)
+    //     }
+    // })
 
 }
 
