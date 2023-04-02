@@ -148,6 +148,7 @@ async function sendEmails() {
         }
         console.log(`Task running at ${rule.hour}am every day!`);
     })
+    
 }
 
 
