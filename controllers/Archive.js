@@ -1,4 +1,4 @@
-express = require('express')
+const express = require('express')
 const Archive = require('../models/archive')
 
 const router = express.Router()
@@ -13,6 +13,16 @@ router.post('/', (req, res) => {
         .catch((err) => {
             console.log(err)
         })
+})
+
+// Delete Archive
+router.delete('/', (req, res) => {
+    try{
+        console.log(req)
+        console.log(req.body)
+    } catch(err) {
+        console.log(err)
+    }
 })
 
 module.exports = router
