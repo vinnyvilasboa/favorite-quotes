@@ -16,26 +16,23 @@ router.get('/', (req, res) =>{
 })
 
 
-// Delete from email
-router.get('/user', (req, res) => {
-    let deleteEmail = req.query.email
-    User.findOneAndDelete({email: deleteEmail})
-    .then(() => {
-        console.log('deleted ', deleteEmail)
-        res.render('Unsubscribed', {email: deleteEmail})
-    })
-    .catch((err) => {
-        res.status(400).send(err)
-    })
+// Delete Form
+router.get('/unsubscribe', (req, res) => {
+    try {
+        res.render('UnsubscribeForm')
+    } catch (error) {
+        res.status(400).json(err)
+    }
 })
 
 
 //Delete User
-router.delete('/user', (req, res) => {
-    User.findOneAndDelete({email: req.query.email})
+router.delete('/confirmation', (req, res) => {
+    let email = req.body.email
+    User.findOneAndDelete({email})
         .then(() => {
             console.log('deleted')
-            res.redirect('/')
+            res.render('Unsubscribed', {email})
         })
         .catch((err) => {
             res.status(400).send(err)
