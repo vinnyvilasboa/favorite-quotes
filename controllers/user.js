@@ -15,12 +15,40 @@ router.get('/', (req, res) =>{
     }
 })
 
+router.get('/user', (req, res) => {
+    User.findOneAndDelete({email: req.query.email})
+    .then(() => {
+        console.log('deleted')
+        res.redirect('https://psych-bite.herokuapp.com')
+        // res.render('Home')
+    })
+    .catch((err) => {
+        res.status(400).send(err)
+    })
+    console.log(req)
+    console.log(req.body)
+    console.log(req.query.email)
+    res.redirect('Home')
+    // User.findOne({email: req.body})
+    //     .then((user) => {
+    //         console.log(user)
+    //     })
+    //     .catch((err) => {
+    //         console.log('Error ', err)
+    //     })
+})
+
 
 //Delete User
 router.delete('/user', (req, res) => {
-    User.findOneAndDelete({email: req.body})
+    console.log(req)
+    console.log(req.body)
+    console.log(req.query.email)
+    User.findOneAndDelete({email: req.query.email})
         .then(() => {
-            res.render('Home')
+            console.log('deleted')
+            res.redirect('https://psych-bite.herokuapp.com')
+            // res.render('Home')
         })
         .catch((err) => {
             res.status(400).send(err)
