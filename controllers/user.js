@@ -35,8 +35,7 @@ router.delete('/user', (req, res) => {
     User.findOneAndDelete({email: req.query.email})
         .then(() => {
             console.log('deleted')
-            res.redirect('https://psych-bite.herokuapp.com')
-            // res.render('Home')
+            res.redirect('/')
         })
         .catch((err) => {
             res.status(400).send(err)
@@ -48,7 +47,7 @@ router.delete('/user', (req, res) => {
 router.post('/user', (req, res) => {
     User.create(req.body)
         .then((user) => {
-            res.render('Home')
+            res.redirect('/')
         })
         .catch((err) => {
             res.status(403).send(err)
