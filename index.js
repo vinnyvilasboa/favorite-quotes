@@ -147,56 +147,8 @@ async function sendEmails() {
                 }
             });
         }
-        // transporter.sendMail(message, (error, info) => {
-        //     if (error) {
-        //         console.log(message.bcc, " didn't receive the email. Error: ", error);
-        //     } else {
-        //         console.log(`Email sent: ${info.response}`);
-        //     }
-        // });
         console.log(`Task running at ${rule.hour}am every day!`);
     })
-
-    // for(let user of users){
-    //     message = {
-    //         from: 'Daily Quotes <lookout-intothe@outlook.com>',
-    //         subject: "Quote of the Day",
-    //         text: `Good Morning!\n\n${result.quote} by ${result.author}`,
-    //         html: `${emailHTML}`
-    //     }
-    //     message.to = `Subscribers <${user.email}>`
-    //     unsubscribeEmail = user.email
-    //     console.log(unsubscribeEmail)
-        
-    //     transporter.sendMail(message, (error, info) => {
-    //         if (error) {
-    //             console.log(message.to, " didn't receive the email. Error: ", error);
-    //         } else {
-    //             console.log(`Email sent: ${info.response}`);
-    //             console.log(info.accepted)
-    //         }
-    //     });
-    // }
-
-
-    // message = {
-    //     from: 'Daily Quotes <lookout-intothe@outlook.com>',
-    //     bcc: '',
-    //     subject: "Quote of the Day",
-    //     text: `Good Morning!\n\n${result}`,
-    //     html: `${emailHTML}`
-    // }
-    // message.to = `Subscribers <lucas2carlos@hotmail.com>`
-    // unsubscribeEmail = 'lucas2carlos@hotmail.com'
-    
-    // transporter.sendMail(message, (error, info) => {
-    //     if (error) {
-    //         console.log(message.to, " didn't receive the email. Error: ", error);
-    //     } else {
-    //         console.log(`Email sent: ${info.response}`);
-    //         console.log(info.accepted)
-    //     }
-    // })
 
 }
 
