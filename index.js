@@ -82,19 +82,20 @@ async function getRandomQuote() {
 
 }
 
-let unsubscribeEmail
+
 
 
 async function sendEmails() {
     console.log('Send mail function')
     const result = await getRandomQuote()
     const users = await getAllUsers()
-    const emailHTML = `
-    <h2 style="font-style:bold; text-decoration:underline">Good Morning!</h2>
-    <p style="font-size:large; margin-bottom:0"><span style="text-decoration:underline">Here is your quote of the day</span>: "${result.quote}"</p>
-    <p style="margin-top:0; font-style:italic">by ${result.author}</p>
-    <br/>
-    <a style="text-decoration:none" href="https://psych-bite.herokuapp.com/user?email=${unsubscribeEmail}">Unsubscribe</a>
+
+    const emailHtml = `
+        <h2 style="font-style:bold; text-decoration:underline">Good Morning!</h2>
+        <p style="font-size:large; margin-bottom:0"><span style="text-decoration:underline">Here is your quote of the day</span>: "${result.quote}"</p>
+        <p style="margin-top:0; font-style:italic">by ${result.author}</p>
+        <br/>
+        <a style="text-decoration:none" href="https://psych-bite.herokuapp.com/unsubscribe">Unsubscribe</a>
     `
 
     const transporter = nodemailer.createTransport({
@@ -113,6 +114,7 @@ async function sendEmails() {
         bcc: '',
         subject: "Quote of the Day",
         text: `Good Morning!\n\n${result.quote} by ${result.author}`,
+        html: emailHtml
     }
 
    
@@ -131,11 +133,9 @@ async function sendEmails() {
                 from: 'Daily Quotes <lookout-intothe@outlook.com>',
                 subject: "Quote of the Day",
                 text: `Good Morning!\n\n${result.quote} by ${result.author}`,
-                html: `${emailHTML}`
+                html: emailHtml
             }
             message.to = `Subscribers <${user.email}>`
-            unsubscribeEmail = user.email
-            console.log(unsubscribeEmail)
             
             transporter.sendMail(message, (error, info) => {
                 if (error) {
@@ -148,7 +148,6 @@ async function sendEmails() {
         }
         console.log(`Task running at ${rule.hour}am every day!`);
     })
-
 }
 
 
