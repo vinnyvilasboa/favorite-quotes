@@ -13,6 +13,8 @@ const User = require('./models/user')
 const Archive = require('./models/archive')
 const nodemailer = require('nodemailer');
 const schedule = require('node-schedule');
+const cron = require('node-cron')
+const https = require('node:https');
 const PORT = process.env.PORT || 3000
 
 
@@ -83,7 +85,11 @@ async function getRandomQuote() {
 }
 
 
-
+// Open the page to prevent idling in the morning
+cron.schedule('10 50 6 * * *', () => {
+    https.get("https://psych-bite.herokuapp.com/")
+    console.log('opening page at 6:50am');
+  });
 
 async function sendEmails() {
     console.log('Send mail function')
