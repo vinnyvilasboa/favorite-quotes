@@ -1,12 +1,12 @@
 const React = require('react')
-const Layout = require('./Layout')
+const Layout = require('../views/Layout')
 
 class UnsubscribeForm extends React.Component{
     render(){
         return(
             <Layout>
                 <nav className="navbar navbar-expand-md">
-                    <a className="navbar-brand" href="#" style={{ textDecoration: 'none' }}>
+                    <a className="navbar-brand" href="https://psych-bite.herokuapp.com/" style={{ textDecoration: 'none' }}>
                         <img src="assets/coffee.svg"
                             style={{
                                 width: '3rem',
