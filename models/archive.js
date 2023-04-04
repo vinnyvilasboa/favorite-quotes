@@ -2,7 +2,9 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const archiveSchema = new Schema({
-    quotes: Object,
+    quoteId: String,
+    quote: String,
+    author: String
 })
 
 const Archive = mongoose.model('Archive', archiveSchema)

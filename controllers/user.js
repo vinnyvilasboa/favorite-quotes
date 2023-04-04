@@ -16,11 +16,23 @@ router.get('/', (req, res) =>{
 })
 
 
+// Delete Form
+router.get('/unsubscribe', (req, res) => {
+    try {
+        res.render('UnsubscribeForm')
+    } catch (error) {
+        res.status(400).json(err)
+    }
+})
+
+
 //Delete User
-router.delete('/user', (req, res) => {
-    User.findOneAndDelete({email: req.body})
+router.delete('/confirmation', (req, res) => {
+    let email = req.body.email
+    User.findOneAndDelete({email})
         .then(() => {
-            res.render('Home')
+            console.log('deleted')
+            res.render('Unsubscribed', {email})
         })
         .catch((err) => {
             res.status(400).send(err)
@@ -32,7 +44,7 @@ router.delete('/user', (req, res) => {
 router.post('/user', (req, res) => {
     User.create(req.body)
         .then((user) => {
-            res.render('Home')
+            res.redirect('/')
         })
         .catch((err) => {
             res.status(403).send(err)

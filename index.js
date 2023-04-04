@@ -13,7 +13,8 @@ const User = require('./models/user')
 const Archive = require('./models/archive')
 const nodemailer = require('nodemailer');
 const schedule = require('node-schedule');
-// const functions = require('./server')
+const cron = require('node-cron')
+const https = require('node:https');
 const PORT = process.env.PORT || 3000
 
 
@@ -66,27 +67,42 @@ async function getRandomQuote() {
     let randomIndex = Math.floor(Math.random() * quoteDB.length);
     let randomQuote = quoteDB[randomIndex]
     // loop if quote is included in archive
-    while (archive.includes(randomQuote._id)) {
+    while (archive.includes({quoteId: randomQuote._id})) {
         randomIndex = Math.floor(Math.random() * quoteDB.length);
         randomQuote = quoteDB[randomIndex]
     }
     // add quote to archive until there are 7, then replace new one with an existing one. 
     if (archive.length < 7) {
-        newArchive({ _id: randomQuote._id })
+        newArchive(randomQuote)
     } else {
-        let id = archive[0]._id
+        let id = archive[0].quoteId
         removeArchive(id)
-        newArchive({ _id: randomQuote._id })
+        newArchive(randomQuote)
     }
     console.log('Here is your quote of the day: "' + randomQuote.quote + '"' + ' by '  + randomQuote.author)
-    return 'Here is your quote of the day: "' + randomQuote.quote + '"' + ' by '  + randomQuote.author
+    return randomQuote
 
 }
+
+
+// Open the page to prevent idling in the morning
+cron.schedule('10 50 6 * * *', () => {
+    https.get("https://psych-bite.herokuapp.com/")
+    console.log('opening page at 6:50am');
+  });
 
 async function sendEmails() {
     console.log('Send mail function')
     const result = await getRandomQuote()
     const users = await getAllUsers()
+
+    const emailHtml = `
+        <h2 style="font-style:bold; text-decoration:underline">Good Morning!</h2>
+        <p style="font-size:large; margin-bottom:0"><span style="text-decoration:underline">Here is your quote of the day</span>: "${result.quote}"</p>
+        <p style="margin-top:0; font-style:italic">by ${result.author}</p>
+        <br/>
+        <a style="text-decoration:none" href="https://psych-bite.herokuapp.com/unsubscribe">Unsubscribe</a>
+    `
 
     const transporter = nodemailer.createTransport({
         host: 'smtp.outlook.com',
@@ -98,21 +114,15 @@ async function sendEmails() {
         }
     });
 
-    const message = {
+    let message = {
         from: 'Daily Quotes <lookout-intothe@outlook.com>',
         to: "Subscribers <vinnycesca@gmail.com>",
         bcc: '',
         subject: "Quote of the Day",
-        text: `Good Morning!\n\n${result}`,
+        text: `Good Morning!\n\n${result.quote} by ${result.author}`,
+        html: emailHtml
     }
 
-    for(let user of users){
-        if(message.bcc === ''){
-            message.bcc = `${user.email}`
-        } else {
-            message.bcc += `, ${user.email}`
-        }
-    }
    
     ////////////////////////////////
     const rule = new schedule.RecurrenceRule();
@@ -123,16 +133,28 @@ async function sendEmails() {
     const job = schedule.scheduleJob(rule, async function () {
         // loops through all users subscribed
         // update the user receiveing the email
-        transporter.sendMail(message, (error, info) => {
-            if (error) {
-                console.log(message.bcc, " didn't receive the email. Error: ", error);
-            } else {
-                console.log(`Email sent: ${info.response}`);
+
+        for(let user of users){
+            message = {
+                from: 'Daily Quotes <lookout-intothe@outlook.com>',
+                subject: "Quote of the Day",
+                text: `Good Morning!\n\n${result.quote} by ${result.author}`,
+                html: emailHtml
             }
-        });
+            message.to = `Subscribers <${user.email}>`
+            
+            transporter.sendMail(message, (error, info) => {
+                if (error) {
+                    console.log(message.to, " didn't receive the email. Error: ", error);
+                } else {
+                    console.log(`Email sent: ${info.response}`);
+                    console.log(info.accepted)
+                }
+            });
+        }
         console.log(`Task running at ${rule.hour}am every day!`);
     })
-
+    
 }
 
 
@@ -174,7 +196,10 @@ const allArchives = async () => {
 // Create Archive quote
 const newArchive = (quote) => {
     try{
-        Archive.create(quote)
+        console.log('New Archive')
+        console.log(quote)
+        // console.log(req.body)
+        Archive.create({quoteId:quote._id, quote: quote.quote, author:quote.author})
     }catch(err){
         console.log(err)
     }
@@ -183,7 +208,7 @@ const newArchive = (quote) => {
 //Delete Archive
 const removeArchive = async (id) => {
     try{
-        return await Archive.findByIdAndDelete(id)
+        return await Archive.findOneAndDelete({quoteId: id})
     } catch(e) {
         console.log(e)
         return e
