@@ -134,24 +134,22 @@ async function sendEmails() {
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
     const job = schedule.scheduleJob(rule, async function () {
-        // loops through all users subscribed
-        // update the user receiveing the email
 
+        // loops through all users subscribed
         for(let user of users){
-            // console.log(user.email)
             message = {
                 from: 'Daily Quotes <lookout-intothe@outlook.com>',
                 subject: "Quote of the Day",
                 text: `Good Morning!\n\n${result.quote} by ${result.author}`,
                 html: emailHtml
             }
+            // update the user receiveing the email
             message.to = `Subscribers <${user.email}>`
 
             // Adds a 5 second delay between each email to prevent maximun limit reach
             await delay(5000)
             
             transporter.sendMail(message, (error, info) => {
-                // console.log('SENT EMAIL TO: ', user)
                 if (error) {
                     console.log(message.to, " didn't receive the email. Error: ", error);
                 } else {
