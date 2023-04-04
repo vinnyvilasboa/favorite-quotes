@@ -128,13 +128,17 @@ async function sendEmails() {
     const rule = new schedule.RecurrenceRule();
     rule.dayOfWeek = [new schedule.Range(0, 7)];
     rule.hour = 7;
-    rule.minute = 00;
+    rule.minute =00;
+
+    // delay function 
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
     const job = schedule.scheduleJob(rule, async function () {
         // loops through all users subscribed
         // update the user receiveing the email
 
         for(let user of users){
+            // console.log(user.email)
             message = {
                 from: 'Daily Quotes <lookout-intothe@outlook.com>',
                 subject: "Quote of the Day",
@@ -142,8 +146,12 @@ async function sendEmails() {
                 html: emailHtml
             }
             message.to = `Subscribers <${user.email}>`
+
+            // Adds a 5 second delay between each email to prevent maximun limit reach
+            await delay(5000)
             
             transporter.sendMail(message, (error, info) => {
+                // console.log('SENT EMAIL TO: ', user)
                 if (error) {
                     console.log(message.to, " didn't receive the email. Error: ", error);
                 } else {
