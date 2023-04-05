@@ -1,5 +1,5 @@
 const React = require('react')
-const Layout = require('./Layout')
+const Layout = require('../views/Layout.jsx')
 
 
 class Home extends React.Component {
@@ -8,7 +8,7 @@ class Home extends React.Component {
             <Layout>
 
                 <nav className="navbar navbar-expand-md">
-                    <a className="navbar-brand" href="#" style={{ textDecoration: 'none' }}>
+                    <a className="navbar-brand" href="/" style={{ textDecoration: 'none' }}>
                         <img src="assets/coffee.svg"
                             style={{
                                 width: '3rem',

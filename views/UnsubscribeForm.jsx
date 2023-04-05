@@ -1,5 +1,5 @@
 const React = require('react')
-const Layout = require('./Layout')
+const Layout = require('../views/Layout.jsx')
 
 class UnsubscribeForm extends React.Component{
     render(){
