@@ -1,6 +1,5 @@
 const React = require('react')
-const Layout = require('../views/Layout.jsx')
-
+const Layout = require('../views/Layout')
 
 class Home extends React.Component {
     render() {
