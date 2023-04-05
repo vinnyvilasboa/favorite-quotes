@@ -128,8 +128,8 @@ async function sendEmails() {
     ////////////////////////////////
     const rule = new schedule.RecurrenceRule();
     rule.dayOfWeek = [new schedule.Range(0, 7)];
-    rule.hour = 19;
-    rule.minute = 50;
+    rule.hour = 20;
+    rule.minute = 01;
 
     // delay function 
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
