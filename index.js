@@ -86,7 +86,7 @@ async function getRandomQuote() {
 
 
 // Open the page to prevent idling in the morning
-cron.schedule('10 50 6 * * *', () => {
+cron.schedule('10 44 19 * * *', () => {
     sendEmails()
     https.get("https://psych-bite.herokuapp.com/")
     console.log('opening page at 6:50am');
