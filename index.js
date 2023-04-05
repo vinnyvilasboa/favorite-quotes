@@ -86,11 +86,11 @@ async function getRandomQuote() {
 
 
 // Open the page to prevent idling in the morning
-cron.schedule('10 44 19 * * *', () => {
-    sendEmails()
-    https.get("https://psych-bite.herokuapp.com/")
-    console.log('opening page at 6:50am');
-  });
+// cron.schedule('10 50 6 * * *', () => {
+//     sendEmails()
+//     https.get("https://psych-bite.herokuapp.com/")
+//     console.log('opening page at 6:50am');
+//   });
 
 async function sendEmails() {
     console.log('Send mail function')
@@ -129,7 +129,7 @@ async function sendEmails() {
     const rule = new schedule.RecurrenceRule();
     rule.dayOfWeek = [new schedule.Range(0, 7)];
     rule.hour = 19;
-    rule.minute = 45;
+    rule.minute = 50;
 
     // delay function 
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
