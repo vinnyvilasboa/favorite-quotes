@@ -13,6 +13,7 @@ const User = require('./models/user')
 const Archive = require('./models/archive')
 const nodemailer = require('nodemailer');
 const schedule = require('node-schedule');
+const { addHours } = require('date-fns');
 const cron = require('node-cron')
 const https = require('node:https');
 const PORT = process.env.PORT || 3000
@@ -126,8 +127,6 @@ async function sendEmails() {
 
    
     ////////////////////////////////
-    const { addHours } = require('date-fns');
-
     // Get the current UTC time
     const utcDate = addHours(new Date(), -new Date().getTimezoneOffset() / 60);
     
