@@ -126,10 +126,17 @@ async function sendEmails() {
 
    
     ////////////////////////////////
+    const { addHours } = require('date-fns');
+
+    // Get the current UTC time
+    const utcDate = addHours(new Date(), -new Date().getTimezoneOffset() / 60);
+    
     const rule = new schedule.RecurrenceRule();
-    rule.dayOfWeek = [new schedule.Range(0, 7)];
+    rule.dayOfWeek = [new schedule.Range(0, 6)];
     rule.hour = 7;
-    rule.minute = 05;
+    rule.minute = 5;
+    rule.tz = 'UTC';
+    rule.start = utcDate;
 
     // delay function 
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
