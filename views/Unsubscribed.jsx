@@ -8,18 +8,6 @@ class Unsubscribed extends React.Component{
         console.log(found)
         return(
             <Layout>
-                <nav className="navbar navbar-expand-md">
-                    <a className="navbar-brand" href="https://psych-bite.herokuapp.com/" style={{ textDecoration: 'none' }}>
-                        <img src="assets/coffee.svg"
-                            style={{
-                                width: '3rem',
-                                height: '3rem',
-                                marginLeft: "30px",
-                                marginRight: "30px"
-                            }} />
-                        Psych•Bite
-                    </a>
-                </nav>
                 {
                     !found ?
                     <div className="unsubscribed">
