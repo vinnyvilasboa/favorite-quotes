@@ -14,6 +14,18 @@ class Layout extends React.Component {
                     </head>
                 </html>
                 <body>
+                <nav className="navbar navbar-expand-md">
+                    <a className="navbar-brand" href="https://psych-bite.herokuapp.com/" style={{ textDecoration: 'none' }}>
+                        <img src="assets/coffee.svg"
+                            style={{
+                                width: '3rem',
+                                height: '3rem',
+                                marginLeft: "30px",
+                                marginRight: "30px"
+                            }} />
+                        Psych•Bite
+                    </a>
+                </nav>
                     {this.props.children}
                     {/* <!-- Scripts --> */}
                     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
