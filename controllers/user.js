@@ -56,9 +56,16 @@ router.delete('/confirmation', (req, res) => {
 
 // Create User
 router.post('/user', (req, res) => {
-    User.create(req.body)
-        .then((user) => {
-            res.redirect('/')
+    let found
+    // check if email exists
+    User.findOne({email: req.body.email})
+        .then((foundUser) => {
+            // if it doesn't create subscriber
+            if(!foundUser){
+                User.create(req.body).then((createdUser) => {res.render('Home', {found: false, email: createdUser.email})})
+            } else {
+                res.render('Home', {found: true, email: foundUser.email})
+            }
         })
         .catch((err) => {
             res.status(403).send(err)
