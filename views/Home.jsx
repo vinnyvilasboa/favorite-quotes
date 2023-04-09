@@ -5,20 +5,6 @@ class Home extends React.Component {
     render() {
         return (
             <Layout>
-
-                <nav className="navbar navbar-expand-md">
-                    <a className="navbar-brand" href="/" style={{ textDecoration: 'none' }}>
-                        <img src="assets/coffee.svg"
-                            style={{
-                                width: '3rem',
-                                height: '3rem',
-                                marginLeft: "30px",
-                                marginRight: "30px"
-                            }} />
-                        Psych•Bite
-                    </a>
-                </nav>
-
                 {/* <!-- Landing --> */}
                 <div className="container">
                     <div className="container header">

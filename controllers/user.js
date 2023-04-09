@@ -29,10 +29,24 @@ router.get('/unsubscribe', (req, res) => {
 //Delete User
 router.delete('/confirmation', (req, res) => {
     let email = req.body.email
-    User.findOneAndDelete({email})
-        .then(() => {
-            console.log('deleted')
-            res.render('Unsubscribed', {email})
+    let found
+    // check if user exists
+    User.find({email})
+        .then((user) => {
+            // explains no user found
+            if(!user){
+                found = false
+                console.log('Not deleted')
+                res.render('Unsubscribed', {found, email})
+            } else {
+                // delete existing user
+                found = true
+                User.findOneAndDelete({email})
+                    .then(() => {
+                        console.log('deleted')
+                        res.render('Unsubscribed', {email, found})
+                    })
+            }
         })
         .catch((err) => {
             res.status(400).send(err)
@@ -42,9 +56,16 @@ router.delete('/confirmation', (req, res) => {
 
 // Create User
 router.post('/user', (req, res) => {
-    User.create(req.body)
-        .then((user) => {
-            res.redirect('/')
+    let found
+    // check if email exists
+    User.findOne({email: req.body.email})
+        .then((foundUser) => {
+            // if it doesn't create subscriber
+            if(!foundUser){
+                User.create(req.body).then((createdUser) => {res.render('Home', {found: false, email: createdUser.email})})
+            } else {
+                res.render('Home', {found: true, email: foundUser.email})
+            }
         })
         .catch((err) => {
             res.status(403).send(err)

@@ -13,8 +13,7 @@ const User = require('./models/user')
 const Archive = require('./models/archive')
 const nodemailer = require('nodemailer');
 const schedule = require('node-schedule');
-const cron = require('node-cron')
-const https = require('node:https');
+const { addHours } = require('date-fns');
 const PORT = process.env.PORT || 3000
 
 
@@ -85,11 +84,6 @@ async function getRandomQuote() {
 }
 
 
-// Open the page to prevent idling in the morning
-cron.schedule('10 50 6 * * *', () => {
-    https.get("https://psych-bite.herokuapp.com/")
-    console.log('opening page at 6:50am');
-  });
 
 async function sendEmails() {
     console.log('Send mail function')
@@ -125,10 +119,15 @@ async function sendEmails() {
 
    
     ////////////////////////////////
+    // Get the current UTC time
+    const utcDate = addHours(new Date(), -new Date().getTimezoneOffset() / 60);
+    
     const rule = new schedule.RecurrenceRule();
-    rule.dayOfWeek = [new schedule.Range(0, 7)];
-    rule.hour = 7;
-    rule.minute =00;
+    rule.dayOfWeek = [new schedule.Range(0, 6)];
+    rule.hour = 11;
+    rule.minute = 5;
+    rule.tz = 'UTC';
+    rule.start = utcDate;
 
     // delay function 
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
@@ -158,7 +157,7 @@ async function sendEmails() {
                 }
             });
         }
-        console.log(`Task running at ${rule.hour}am every day!`);
+        console.log(`Task running at ${rule.hour - 4}am every day!`);
     })
     
 }
