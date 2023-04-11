@@ -4,8 +4,10 @@ const mongoose = require('mongoose')
 const morgan = require('morgan')
 const methodOverride = require('method-override')
 const app = express()
-const userController = require('./controllers/user')
+const userRoutes = require('./routes/user')
 const quoteRoutes = require('./routes/quotes')
+const {getAllQuotes} = require('./controllers/quotes')
+const {getAllUsers} = require('./controllers/user')
 const path = require('path')
 const Quote = require('./models/quote')
 const User = require('./models/user')
@@ -45,7 +47,7 @@ app.use((req, res, next) => {
 
 
 // Routes
-app.use('/', userController)
+app.use('/', userRoutes)
 app.use('/quotes', quoteRoutes)
 
 app.get('/*', (req, res) => {
@@ -189,26 +191,6 @@ async function sendEmails() {
 
 }
 
-
-const getAllQuotes = async () => {
-    try {
-        const quotes = await Quote.find({})
-        return quotes
-    } catch (e) {
-        console.log(e)
-        return e
-    }
-}
-
-const getAllUsers = async () => {
-    try {
-        const users = await User.find({})
-        return users
-    } catch (e) {
-        console.log(e)
-        return e
-    }
-}
 
 
 //Get all Archives
