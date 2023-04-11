@@ -1,13 +1,13 @@
-# Psych Bite
+# [Psych Bite](https://psych-bite.herokuapp.com/)
 
 A service that emails a random quote from either Dr. Jordan Peterson, C.S Lewis or Naval Ravikant everyday at 7am to start your morning with a bite of knowledge.
-- Working on this project: Vinny Vilasboa & Lucas Carlos
+- Working on this project: **Vinny Vilasboa** & **Lucas Carlos**
 
 
 # WireFrame
 
 <img
-  src="assets/wireframe.png"
+  src="/assets/wireframe.png"
   alt="wireframe"
   style="display: inline-block; margin: 0 auto; max-width: 300px">
 ## Installation
