@@ -1,5 +1,5 @@
 require('dotenv').config()
-const express  = require('express')
+const express = require('express')
 const mongoose = require('mongoose')
 const morgan = require('morgan')
 const methodOverride = require('method-override')
@@ -35,7 +35,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 //Middleware
 app.use(morgan('tiny'))
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use(express.static('public'));
 
@@ -66,7 +66,7 @@ async function getRandomQuote() {
     let randomIndex = Math.floor(Math.random() * quoteDB.length);
     let randomQuote = quoteDB[randomIndex]
     // loop if quote is included in archive
-    while (archive.includes({quoteId: randomQuote._id})) {
+    while (archive.includes({ quoteId: randomQuote._id })) {
         randomIndex = Math.floor(Math.random() * quoteDB.length);
         randomQuote = quoteDB[randomIndex]
     }
@@ -78,7 +78,7 @@ async function getRandomQuote() {
         removeArchive(id)
         newArchive(randomQuote)
     }
-    console.log('Here is your quote of the day: "' + randomQuote.quote + '"' + ' by '  + randomQuote.author)
+    console.log('Here is your quote of the day: "' + randomQuote.quote + '"' + ' by ' + randomQuote.author)
     return randomQuote
 
 }
@@ -89,14 +89,41 @@ async function sendEmails() {
     console.log('Send mail function')
     const result = await getRandomQuote()
     const users = await getAllUsers()
+    
 
     const emailHtml = `
-        <h2 style="font-style:bold; text-decoration:underline">Good Morning!</h2>
-        <p style="font-size:large; margin-bottom:0"><span style="text-decoration:underline">Here is your quote of the day</span>: "${result.quote}"</p>
-        <p style="margin-top:0; font-style:italic">by ${result.author}</p>
-        <br/>
-        <a style="text-decoration:none" href="https://psych-bite.herokuapp.com/unsubscribe">Unsubscribe</a>
-    `
+    <html>
+        <head>
+            <style>
+                .header {
+                    background-color: #0074D9; 
+                    color: #FFFFFF;
+                    padding: 20px; 
+                    text-align: center;
+                }
+                .body {
+                    background-color: white; 
+                    color: #000000; 
+                    padding: 20px;
+                }
+
+            </style>
+        </head>
+        <body>
+            <div class="header">
+                <h2>Good Morning,</h2>
+                <h3>Here is your quote of the day: </h3>
+            </div>
+            <div class="body">
+            <h3>"${result.quote}"</h3>
+             <p style="margin-top:0; font-style:italic">by ${result.author}</p>
+            </div>
+            <br/>
+           <small style="margin-top:0; font-style:italic"><a style="text-decoration:none" href="https://psych-bite.herokuapp.com/unsubscribe">Unsubscribe</a></small>
+        </body>
+    </html>
+`;
+
 
     const transporter = nodemailer.createTransport({
         host: 'smtp.outlook.com',
@@ -117,15 +144,15 @@ async function sendEmails() {
         html: emailHtml
     }
 
-   
+
     ////////////////////////////////
     // Get the current UTC time
     const utcDate = addHours(new Date(), -new Date().getTimezoneOffset() / 60);
-    
+
     const rule = new schedule.RecurrenceRule();
     rule.dayOfWeek = [new schedule.Range(0, 6)];
-    rule.hour = 11;
-    rule.minute = 5;
+    rule.hour =11;
+    rule.minute = 05;
     rule.tz = 'UTC';
     rule.start = utcDate;
 
@@ -135,7 +162,7 @@ async function sendEmails() {
     const job = schedule.scheduleJob(rule, async function () {
 
         // loops through all users subscribed
-        for(let user of users){
+        for (let user of users) {
             message = {
                 from: 'Daily Quotes <lookout-intothe@outlook.com>',
                 subject: "Quote of the Day",
@@ -147,7 +174,7 @@ async function sendEmails() {
 
             // Adds a 5 second delay between each email to prevent maximun limit reach
             await delay(5000)
-            
+
             transporter.sendMail(message, (error, info) => {
                 if (error) {
                     console.log(message.to, " didn't receive the email. Error: ", error);
@@ -159,25 +186,25 @@ async function sendEmails() {
         }
         console.log(`Task running at ${rule.hour - 4}am every day!`);
     })
-    
+
 }
 
 
-const getAllQuotes = async() => {
-    try{
+const getAllQuotes = async () => {
+    try {
         const quotes = await Quote.find({})
         return quotes
-    } catch(e) {
+    } catch (e) {
         console.log(e)
         return e
     }
 }
 
 const getAllUsers = async () => {
-    try{
+    try {
         const users = await User.find({})
         return users
-    } catch(e) {
+    } catch (e) {
         console.log(e)
         return e
     }
@@ -186,10 +213,10 @@ const getAllUsers = async () => {
 
 //Get all Archives
 const allArchives = async () => {
-    try{
+    try {
         const archives = await Archive.find({})
         return archives
-    } catch(e) {
+    } catch (e) {
         console.log(e)
         return e
     }
@@ -200,21 +227,21 @@ const allArchives = async () => {
 
 // Create Archive quote
 const newArchive = (quote) => {
-    try{
+    try {
         console.log('New Archive')
         console.log(quote)
         // console.log(req.body)
-        Archive.create({quoteId:quote._id, quote: quote.quote, author:quote.author})
-    }catch(err){
+        Archive.create({ quoteId: quote._id, quote: quote.quote, author: quote.author })
+    } catch (err) {
         console.log(err)
     }
 }
 
 //Delete Archive
 const removeArchive = async (id) => {
-    try{
-        return await Archive.findOneAndDelete({quoteId: id})
-    } catch(e) {
+    try {
+        return await Archive.findOneAndDelete({ quoteId: id })
+    } catch (e) {
         console.log(e)
         return e
     }
@@ -226,4 +253,5 @@ sendEmails().catch(console.error)
 app.listen(PORT, () => {
     console.log(`listening on port: ${PORT}`)
 })
+
 
