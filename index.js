@@ -5,7 +5,7 @@ const morgan = require('morgan')
 const methodOverride = require('method-override')
 const app = express()
 const userController = require('./controllers/user')
-const quoteController = require('./controllers/quotes')
+const quoteRoutes = require('./routes/quotes')
 const path = require('path')
 const Quote = require('./models/quote')
 const User = require('./models/user')
@@ -46,7 +46,7 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/', userController)
-app.use('/quotes', quoteController)
+app.use('/quotes', quoteRoutes)
 
 app.get('/*', (req, res) => {
     res.redirect('/')
