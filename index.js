@@ -9,8 +9,6 @@ const quoteRoutes = require('./routes/quotes')
 const {getAllQuotes} = require('./controllers/quotes')
 const {getAllUsers} = require('./controllers/user')
 const path = require('path')
-const Quote = require('./models/quote')
-const User = require('./models/user')
 // This is where the old quotes will be stored
 const Archive = require('./models/archive')
 const nodemailer = require('nodemailer');
