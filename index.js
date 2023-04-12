@@ -8,9 +8,9 @@ const userRoutes = require('./routes/user')
 const quoteRoutes = require('./routes/quotes')
 const {getAllQuotes} = require('./controllers/quotes')
 const {getAllUsers} = require('./controllers/user')
+const archivesController = require('./controllers/archive')
 const path = require('path')
 // This is where the old quotes will be stored
-const Archive = require('./models/archive')
 const nodemailer = require('nodemailer');
 const schedule = require('node-schedule');
 const { addHours } = require('date-fns');
@@ -60,7 +60,7 @@ const password = process.env.EMAIL_PASS;
 
 async function getRandomQuote() {
     // archive is where old quotes are stored
-    const archive = await allArchives()
+    const archive = await archivesController.allArchives()
     // quote database
     const quoteDB = await getAllQuotes()
     let randomIndex = Math.floor(Math.random() * quoteDB.length);
@@ -72,11 +72,11 @@ async function getRandomQuote() {
     }
     // add quote to archive until there are 7, then replace new one with an existing one. 
     if (archive.length < 7) {
-        newArchive(randomQuote)
+        archivesController.newArchive(randomQuote)
     } else {
         let id = archive[0].quoteId
-        removeArchive(id)
-        newArchive(randomQuote)
+        archivesController.removeArchive(id)
+        archivesController.newArchive(randomQuote)
     }
     console.log('Here is your quote of the day: "' + randomQuote.quote + '"' + ' by ' + randomQuote.author)
     return randomQuote
@@ -187,44 +187,6 @@ async function sendEmails() {
         console.log(`Task running at ${rule.hour - 4}am every day!`);
     })
 
-}
-
-
-
-//Get all Archives
-const allArchives = async () => {
-    try {
-        const archives = await Archive.find({})
-        return archives
-    } catch (e) {
-        console.log(e)
-        return e
-    }
-}
-
-
-
-
-// Create Archive quote
-const newArchive = (quote) => {
-    try {
-        console.log('New Archive')
-        console.log(quote)
-        // console.log(req.body)
-        Archive.create({ quoteId: quote._id, quote: quote.quote, author: quote.author })
-    } catch (err) {
-        console.log(err)
-    }
-}
-
-//Delete Archive
-const removeArchive = async (id) => {
-    try {
-        return await Archive.findOneAndDelete({ quoteId: id })
-    } catch (e) {
-        console.log(e)
-        return e
-    }
 }
 
 
