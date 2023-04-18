@@ -1,33 +1,39 @@
 const express = require('express')
 const User = require('../models/user')
 
-const router = express.Router()
 
+module.exports = {
+    index,
+    unsubscribe,
+    deleteUser,
+    createUser,
+    getAllUsers
+}
 
 
 //Index
-router.get('/', (req, res) =>{
+async function index (req, res){
     try{
         res.render('Home')
     } catch(err){
         console.log(err)
         res.status(400).json(err)
     }
-})
+}
 
 
 // Delete Form
-router.get('/unsubscribe', (req, res) => {
+async function unsubscribe (req, res){
     try {
         res.render('UnsubscribeForm')
     } catch (error) {
         res.status(400).json(err)
     }
-})
+}
 
 
 //Delete User
-router.delete('/confirmation', (req, res) => {
+async function deleteUser(req, res){
     let email = req.body.email
     let found
     // check if user exists
@@ -51,11 +57,11 @@ router.delete('/confirmation', (req, res) => {
         .catch((err) => {
             res.status(400).send(err)
         })
-})
+}
 
 
 // Create User
-router.post('/user', (req, res) => {
+async function createUser(req, res){
     let found
     // check if email exists
     User.findOne({email: req.body.email})
@@ -70,8 +76,15 @@ router.post('/user', (req, res) => {
         .catch((err) => {
             res.status(403).send(err)
         })
-})
+}
 
 
-
-module.exports = router
+async function getAllUsers (req, res){
+    try {
+        const users = await User.find({})
+        return users
+    } catch (e) {
+        console.log(e)
+        return e
+    }
+}
