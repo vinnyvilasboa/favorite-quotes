@@ -1,10 +1,16 @@
 const nodemailer = require('nodemailer');
 const schedule = require('node-schedule');
 const {getAllQuotes} = require('./controllers/quotes')
-const {getAllUsers} = require('./controllers/user')
+const { getAllUsers } = require('./controllers/user')
 const archivesController = require('./controllers/archive')
 const { addHours } = require('date-fns');
 
+
+
+module.exports = {
+    scheduleEmails,
+    subscriberEmail
+}
 
 // email credentials
 const userEmail = process.env.EMAIL;
@@ -91,7 +97,7 @@ async function scheduleEmails() {
 
     message = {
         from: 'Daily Quotes <lookout-intothe@outlook.com>',
-        to: "Subscribers <vinnycesca@gmail.com>",
+        to: "",
         bcc: '',
         subject: "Quote of the Day",
         text: `Good Morning!\n\n${result.quote} by ${result.author}`,
@@ -143,13 +149,17 @@ async function scheduleEmails() {
 
 }
 
-const oneEmail = async () => {
-    const result = await getRandomQuote()
+async function subscriberEmail(add, num) {
     message = {
-        from: 'Test Email <lookout-intothe@outlook.com>',
-        subject: "Test",
-        to: 'lucas2carlos@gmail.com',
-        text: `Good Morning!\n\n${result.quote} by ${result.author}`,
+        from: 'lookout-intothe@outlook.com',
+        to: 'vinnycesca@gmail.com, lucas2carlos@gmail.com',
+    }
+    if(add){
+        message.subject = "New Subscriber"
+        message.text = `New Subscriber added.\n Total Subscribers: ${num} `
+    } else {
+        message.subject = "Subscriber Removed"
+        message.text = `New Unsubscriber.\n Total Subscribers: ${num} `
     }
     transporter.sendMail(message, (error, info) => {
         if (error) {
@@ -161,9 +171,3 @@ const oneEmail = async () => {
     });
 }
 
-
-
-module.exports = {
-    scheduleEmails,
-    oneEmail
-}
