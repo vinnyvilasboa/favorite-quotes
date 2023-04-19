@@ -1,7 +1,6 @@
 const express = require('express')
 const User = require('../models/user')
 
-
 module.exports = {
     index,
     unsubscribe,
@@ -9,6 +8,19 @@ module.exports = {
     createUser,
     getAllUsers
 }
+
+async function getAllUsers (req, res){
+    try {
+        const users = await User.find({})
+        return users
+    } catch (e) {
+        console.log(e)
+        return e
+    }
+}
+
+// has to be below function
+const {subscriberEmail} = require('../nodemailer')
 
 
 //Index
@@ -34,6 +46,7 @@ async function unsubscribe (req, res){
 
 //Delete User
 async function deleteUser(req, res){
+    let users = await getAllUsers()
     let email = req.body.email
     let found
     // check if user exists
@@ -49,6 +62,8 @@ async function deleteUser(req, res){
                 found = true
                 User.findOneAndDelete({email})
                     .then(() => {
+                        // email notification to creators
+                        subscriberEmail(false, users.length - 1)
                         console.log('deleted')
                         res.render('Unsubscribed', {email, found})
                     })
@@ -62,13 +77,19 @@ async function deleteUser(req, res){
 
 // Create User
 async function createUser(req, res){
+    let users = await getAllUsers()
     let found
     // check if email exists
-    User.findOne({email: req.body.email})
+    await User.findOne({email: req.body.email})
         .then((foundUser) => {
             // if it doesn't create subscriber
             if(!foundUser){
-                User.create(req.body).then((createdUser) => {res.render('Home', {found: false, email: createdUser.email})})
+                User.create(req.body)
+                    .then((createdUser) => {
+                        // email notification to creators
+                        subscriberEmail(true, users.length + 1)
+                        res.render('Home', {found: false, email: createdUser.email})
+                    })
             } else {
                 res.render('Home', {found: true, email: foundUser.email})
             }
@@ -79,12 +100,4 @@ async function createUser(req, res){
 }
 
 
-async function getAllUsers (req, res){
-    try {
-        const users = await User.find({})
-        return users
-    } catch (e) {
-        console.log(e)
-        return e
-    }
-}
+
