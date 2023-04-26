@@ -7,14 +7,8 @@ module.exports = {index, createQuote, getAllQuotes}
 // Index
 async function index (req, res){
     try{
-        await Quote.find({})
-            .then((quotes) => {
-                res.render('Quotes', {quotes})
-            })
-            .catch((err) => {
-                console.log(err)
-                res.status(400).send(err)
-            })
+        const quotes = await Quote.find({})
+        res.render('Quotes', {quotes})
     } catch(e) {
         res.status(400).json(e)
     }
