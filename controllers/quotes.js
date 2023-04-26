@@ -1,22 +1,31 @@
 const express = require('express')
 const Quote = require('../models/quote')
 
-module.exports = {index, createQuote, getAllQuotes}
+module.exports = {index, createQuote, getAllQuotes, access}
 
 
 // Index
 async function index (req, res){
-    const password = req.query.password
+    try{
+        res.render('Quotes', {quotes: 'nonde', access: false})
+    } catch(e) {
+        res.status(400).json(e)
+    }
+}
+
+//access to quotes
+async function access (req, res){
+    const {password} = req.body
     console.log(password)
     try{
         const quotes = await Quote.find({})
-        if(!password){
-            res.render('Access')
+        if(!password || password !== process.env.QUOTES_PASS){
+            res.redirect('/quotes')
         } else {
-            console.log('Quotes!!!!!!!!!!!!!!!!!')
-            res.render('Quotes', {quotes})
-        } 
-    } catch(e) {
+            console.log('Render!!!!!!!!!!!!!!!!!!!')
+            res.render('Quotes', {quotes, access: true})
+        }
+    } catch(e){
         res.status(400).json(e)
     }
 }
