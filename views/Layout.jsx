@@ -16,7 +16,7 @@ class Layout extends React.Component {
                 <body>
                 <nav className="navbar navbar-expand-md">
                     <a className="navbar-brand" href="https://psych-bite.herokuapp.com/" style={{ textDecoration: 'none' }}>
-                        <img src="assets/coffee.svg"
+                        <img src="/assets/coffee.svg"
                             style={{
                                 width: '3rem',
                                 height: '3rem',
