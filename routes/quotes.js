@@ -4,6 +4,7 @@ const quoteController = require('../controllers/quotes')
 
 // /quotes
 router.get('/', quoteController.index)
+router.post('/access', quoteController.access)
 router.post('/quote', quoteController.createQuote)
 
 
