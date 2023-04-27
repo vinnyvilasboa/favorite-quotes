@@ -48,8 +48,12 @@ async function createQuote (req, res){
 
 // Edit
 async function edit (req, res) {
-    const {id} = req.body
+    console.log("Edit function!!!")
+    const {access, id} = req.params
+    console.log(access)
+    console.log(id)
     try {
+        if(access.toLowerCase() === "false") res.redirect('/quotes')
         const quote = await Quote.findById(id)
         res.render('Edit', {quote})
     } catch (error) {
