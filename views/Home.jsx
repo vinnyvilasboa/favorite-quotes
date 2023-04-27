@@ -6,7 +6,7 @@ class Home extends React.Component {
         return (
             <Layout>
                 {/* <!-- Landing --> */}
-                <div className="container">
+                <>
                     <div className="container header">
                         <div className="jumbotron"  >
                             <h1 className="display-5"><b>Welcome to Psych Bite</b></h1>
@@ -69,7 +69,7 @@ class Home extends React.Component {
                             </div>
                         </div>
                     </div>
-                </div>
+                </>
                 <div className="footer" style={{ minHeight: "20vh" }}></div>
 
             </Layout>

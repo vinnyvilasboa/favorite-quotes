@@ -16,7 +16,7 @@ class Layout extends React.Component {
                 <body>
                 <nav className="navbar navbar-expand-md">
                     <a className="navbar-brand" href="https://psych-bite.herokuapp.com/" style={{ textDecoration: 'none' }}>
-                        <img src="assets/coffee.svg"
+                        <img src="/assets/coffee.svg"
                             style={{
                                 width: '3rem',
                                 height: '3rem',
@@ -26,7 +26,9 @@ class Layout extends React.Component {
                         Psych•Bite
                     </a>
                 </nav>
+                <div className="container">
                     {this.props.children}
+                </div>
                     {/* <!-- Scripts --> */}
                     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
                     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper-base.min.js"></script>
