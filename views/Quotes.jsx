@@ -49,7 +49,7 @@ class Quotes extends React.Component{
                                             <h4 className="my-1 text-center">{quote.quote}</h4>
                                             <p className="mb-1">By {quote.author} </p>
                                             <div className="d-flex col-2 justify-content-around">
-                                                <a href="" className="btn btn-primary" id="submitBtn">Edit</a>
+                                                <a href={`/quotes/edit/${access}/${quote._id}`} className="btn btn-primary" id="submitBtn">Edit</a>
                                                 <a href="" className="btn btn-danger">Delete</a>
                                             </div>
                                         </div>
