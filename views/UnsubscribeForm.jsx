@@ -5,7 +5,7 @@ class UnsubscribeForm extends React.Component{
     render(){
         return(
             <Layout>
-                <div className="container ">
+                <>
                     <form action="/confirmation?_method=DELETE" method="POST">
                         <div className="form-group row d-flex align-items-center justify-content-center">
                             <div className="col-md-6 ">
@@ -27,7 +27,7 @@ class UnsubscribeForm extends React.Component{
                             </div>
                         </div>
                     </form>
-                </div>
+                </>
             </Layout>
         )
     }
