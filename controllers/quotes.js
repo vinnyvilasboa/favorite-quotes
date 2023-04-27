@@ -1,7 +1,7 @@
 const express = require('express')
 const Quote = require('../models/quote')
 
-module.exports = {index, createQuote, getAllQuotes, access}
+module.exports = {index, createQuote, getAllQuotes, access, newQuote}
 
 
 // Index
@@ -16,13 +16,11 @@ async function index (req, res){
 //access to quotes
 async function access (req, res){
     const {password} = req.body
-    console.log(password)
     try{
         const quotes = await Quote.find({})
         if(!password || password !== process.env.QUOTES_PASS){
             res.redirect('/quotes')
         } else {
-            console.log('Render!!!!!!!!!!!!!!!!!!!')
             res.render('Quotes', {quotes, access: true})
         }
     } catch(e){
@@ -30,12 +28,18 @@ async function access (req, res){
     }
 }
 
+// New
+async function newQuote (req, res) {
+    res.render('New')
+}
+
 // Create Quote
 async function createQuote (req, res){
-    Quote.create(req.body)
-        .then((createdQuote) => {
+    await Quote.create(req.body)
+    const quotes = await Quote.find({})
+    .then((createdQuote) => {
             console.log('Quote Created ', createdQuote)
-            res.render('/')
+            res.render('Quotes', {quotes, access: true})
         })
         .catch((err) => [
             res.status(403).send(err)
