@@ -37,8 +37,7 @@ class Quotes extends React.Component{
                                     <div className="col-md-3 d-flex align-items-center">
                                         <input
                                             type="submit"
-                                            id="submitBtn"
-                                            className="btn btn-primary btn-block btn-sm"
+                                            className="btn btn-success btn-block btn-sm"
                                             value="New Quote" ></input>
                                     </div>
                                 </div>
@@ -47,11 +46,11 @@ class Quotes extends React.Component{
                                 quotes.map((quote) => {
                                     return(
                                         <div key={quote._id} className="form group d-flex flex-column align-items-center py-4">
-                                            <h4>{quote.quote}</h4>
-                                            <p className="my-0">By {quote.author} </p>
+                                            <h4 className="my-1 text-center">{quote.quote}</h4>
+                                            <p className="mb-1">By {quote.author} </p>
                                             <div className="d-flex col-2 justify-content-around">
-                                                <button>Edit</button>
-                                                <button>Delete</button>
+                                                <a href="" className="btn btn-primary" id="submitBtn">Edit</a>
+                                                <a href="" className="btn btn-danger">Delete</a>
                                             </div>
                                         </div>
                                     )
