@@ -1,7 +1,7 @@
 const express = require('express')
 const Quote = require('../models/quote')
 
-module.exports = {index, createQuote, getAllQuotes, access, newQuote, edit}
+module.exports = {index, createQuote, getAllQuotes, access, newQuote, edit, update}
 
 
 // Index
@@ -46,7 +46,7 @@ async function createQuote (req, res){
         ])
 }
 
-//Edit
+// Edit
 async function edit (req, res) {
     const {id} = req.body
     try {
@@ -56,6 +56,17 @@ async function edit (req, res) {
         res.status(400).send(error)
     }
 
+}
+
+// Update
+async function update (req, res) {
+    const {id} = req.params
+    try {
+        await Quote.findByIdAndUpdate(id, req.body, {new: true})
+        res.redirect('/quotes')
+    } catch (error) {
+        res.status(400).send(error)
+    } 
 }
 
 
