@@ -7,7 +7,7 @@ module.exports = {index, createQuote, getAllQuotes, access, newQuote, edit, upda
 // Index
 async function index (req, res){
     try{
-        res.render('Quotes', {quotes: 'nonde', access: false})
+        res.render('Quotes', {quotes: 'none', access: false})
     } catch(e) {
         res.status(400).json(e)
     }
@@ -28,6 +28,17 @@ async function access (req, res){
     }
 }
 
+// Delete
+async function Delete (req, res) {
+    const {id} = req.params
+    try {
+        await Quote.findByIdAndDelete(id)
+        res.render('Quotes')
+    } catch (error) {
+        res.status(400).json(error)
+    }
+}
+
 // New
 async function newQuote (req, res) {
     res.render('New')
@@ -38,26 +49,22 @@ async function createQuote (req, res){
     await Quote.create(req.body)
     const quotes = await Quote.find({})
     .then((createdQuote) => {
-            console.log('Quote Created ', createdQuote)
             res.render('Quotes', {quotes, access: true})
         })
         .catch((err) => [
-            res.status(403).send(err)
+            res.status(403).json(err)
         ])
 }
 
 // Edit
 async function edit (req, res) {
-    console.log("Edit function!!!")
     const {access, id} = req.params
-    console.log(access)
-    console.log(id)
     try {
         if(access.toLowerCase() === "false") res.redirect('/quotes')
         const quote = await Quote.findById(id)
         res.render('Edit', {quote})
     } catch (error) {
-        res.status(400).send(error)
+        res.status(400).json(error)
     }
 
 }
@@ -69,7 +76,7 @@ async function update (req, res) {
         await Quote.findByIdAndUpdate(id, req.body, {new: true})
         res.redirect('/quotes')
     } catch (error) {
-        res.status(400).send(error)
+        res.status(400).json(error)
     } 
 }
 
