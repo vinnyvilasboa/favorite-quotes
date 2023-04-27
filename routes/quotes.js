@@ -7,6 +7,8 @@ router.get('/', quoteController.index)
 router.get('/new', quoteController.newQuote)
 router.post('/access', quoteController.access)
 router.post('/quote', quoteController.createQuote)
+router.get('/edit', quoteController.edit)
+router.put('/:id', quoteController.update)
 
 
 module.exports = router
