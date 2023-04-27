@@ -7,7 +7,7 @@ router.get('/', quoteController.index)
 router.get('/new', quoteController.newQuote)
 router.post('/access', quoteController.access)
 router.post('/quote', quoteController.createQuote)
-router.get('/edit', quoteController.edit)
+router.get('/edit/:access/:id', quoteController.edit)
 router.put('/:id', quoteController.update)
 
 
