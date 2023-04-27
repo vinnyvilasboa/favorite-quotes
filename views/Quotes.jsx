@@ -50,7 +50,9 @@ class Quotes extends React.Component{
                                             <p className="mb-1">By {quote.author} </p>
                                             <div className="d-flex col-2 justify-content-around">
                                                 <a href={`/quotes/edit/${access}/${quote._id}`} className="btn btn-primary" id="submitBtn">Edit</a>
-                                                <a href="" className="btn btn-danger">Delete</a>
+                                                <form action={`/quotes/${ quote._id }?_method=DELETE`} method="POST">
+                                                        <input className='btn btn-danger' type="submit" value="Delete" />
+                                                </form>
                                             </div>
                                         </div>
                                     )
