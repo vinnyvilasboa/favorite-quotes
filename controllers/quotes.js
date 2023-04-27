@@ -1,7 +1,7 @@
 const express = require('express')
 const Quote = require('../models/quote')
 
-module.exports = {index, createQuote, getAllQuotes, access, newQuote, edit, update}
+module.exports = {index, createQuote, getAllQuotes, access, newQuote, edit, update, Delete}
 
 
 // Index
@@ -33,7 +33,7 @@ async function Delete (req, res) {
     const {id} = req.params
     try {
         await Quote.findByIdAndDelete(id)
-        res.render('Quotes')
+        res.redirect('/quotes')
     } catch (error) {
         res.status(400).json(error)
     }
@@ -47,9 +47,9 @@ async function newQuote (req, res) {
 // Create Quote
 async function createQuote (req, res){
     await Quote.create(req.body)
-    const quotes = await Quote.find({})
     .then((createdQuote) => {
-            res.render('Quotes', {quotes, access: true})
+            console.log('quote created: ', createdQuote)
+            res.redirect('/quotes')
         })
         .catch((err) => [
             res.status(403).json(err)
